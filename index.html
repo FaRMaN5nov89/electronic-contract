@@ -2,7 +2,7 @@
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"maximum-scale=1.0, user-scalable=no, viewport-fit=cover>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>هەژمارکردنی گرێبەستی الیکترونی</title>
     
     <!-- PWA Manifest -->
@@ -98,6 +98,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
             background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             min-height: 100vh;
             padding: 0;
             direction: rtl;
@@ -110,24 +111,9 @@
             text-align: center;
             font-size: 38px;
             font-weight: bold;
-            background: linear-gradient(90deg, 
-                rgb(180, 0, 0) 0%,      /* سووری تۆخ */
-                rgb(200, 80, 0) 10%,    /* پرتەقاڵی تۆخ */
-                rgb(180, 150, 0) 20%,   /* زەردی تۆخ */
-                rgb(0, 150, 0) 30%,     /* سەوزی تۆخ */
-                rgb(0, 150, 180) 40%,   /* شینی ئاسمانی تۆخ */
-                rgb(0, 0, 180) 50%,     /* شینی تۆخ */
-                rgb(90, 0, 180) 60%,    /* بەنەوشەی تۆخ */
-                rgb(180, 0, 180) 70%,   /* پەمەیی تۆخ */
-                rgb(180, 0, 80) 80%,    /* گوڵابی تۆخ */
-                rgb(180, 0, 0) 100%     /* گەڕانەوە بۆ سووری تۆخ */
-            );
-            background-size: 400% 100%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: white;
             padding: 20px 15px;
-            text-shadow: none;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
             letter-spacing: 1px;
             line-height: 1.1;
             margin-bottom: 0;
@@ -137,24 +123,27 @@
             max-width: 520px;
             width: 100%;
             margin: 0 auto;
-            background: rgba(248, 250, 252, 0.98);
+            background: linear-gradient(135deg, #F3E8FF 0%, #E9D5FF 100%);
             backdrop-filter: blur(15px);
-            border-radius: 25px 25px 0 0;
+            border-radius: 20px;
             padding: 20px;
             box-shadow: 0 -10px 60px rgba(0,0,0,0.3), 0 0 100px rgba(255,255,255,0.1);
             display: flex;
             flex-direction: column;
             flex-grow: 1;
+            animation: fadeInUp 0.6s ease;
+            border: 5px solid #9333EA;
         }
 
         .info-card {
             background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
-            border-radius: 18px;
+            border-radius: 16px;
             padding: 16px;
             margin-bottom: 15px;
             box-shadow: 0 4px 15px rgba(59, 130, 246, 0.15);
             line-height: 1.1;
             border: 2px solid rgba(59, 130, 246, 0.1);
+            animation: fadeInUp 0.8s ease;
         }
 
         .today-date {
@@ -167,7 +156,7 @@
         }
 
         .today-date::before {
-            content: "";
+            content: "📅 ";
             font-size: 20px;
         }
 
@@ -181,7 +170,7 @@
         }
 
         .deadline-info::before {
-            content: "";
+            content: "⏰ ";
             font-size: 16px;
         }
 
@@ -193,11 +182,12 @@
             gap: 8px;
             margin-bottom: 15px;
             padding: 16px;
-            background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
-            border-radius: 18px;
+            background: linear-gradient(135deg, #FEF9C3 0%, #FEF08A 100%);
+            border-radius: 16px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             line-height: 1.1;
-            border: 2px solid rgba(148, 163, 184, 0.1);
+            border: 2px solid rgba(234, 179, 8, 0.2);
+            animation: fadeInUp 1s ease;
         }
 
         .discount-text {
@@ -207,16 +197,17 @@
         }
 
         .discount-text::before {
-            content: "";
+            content: "💰 ";
             font-size: 20px;
         }
 
         .discount-active {
-            color: #10B981;
+            color: #15803D;
         }
 
         .discount-inactive {
-            color: #EF4444;
+            color: #FF1744;
+            text-shadow: 0 2px 8px rgba(255, 23, 68, 0.3);
         }
 
         .switch {
@@ -267,8 +258,8 @@
         }
 
         .section-label {
-            font-size: 24px;
-            color: #475569;
+            font-size: 26px;
+            color: #2563EB;
             margin-bottom: 8px;
             text-align: center;
             font-weight: 700;
@@ -286,7 +277,7 @@
         .date-button {
             color: white;
             border: none;
-            border-radius: 16px;
+            border-radius: 14px;
             padding: 10px 6px;
             font-size: 40px;
             font-weight: bold;
@@ -294,6 +285,15 @@
             position: relative;
             overflow: hidden;
             line-height: 1;
+            transition: transform 0.2s ease;
+        }
+
+        .date-button:hover {
+            transform: scale(1.05);
+        }
+
+        .date-button:active {
+            transform: scale(0.95);
         }
 
         .date-button:nth-child(1) {
@@ -321,7 +321,7 @@
 
         .result-container {
             background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
-            border-radius: 20px;
+            border-radius: 16px;
             padding: 15px 20px 20px 20px;
             display: flex;
             align-items: flex-start;
@@ -331,6 +331,7 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.6);
             position: relative;
             border: 2px solid rgba(148, 163, 184, 0.1);
+            transition: all 0.4s ease;
         }
 
         .result-text {
@@ -351,6 +352,7 @@
             text-shadow: 0 2px 10px rgba(239, 68, 68, 0.3);
             display: inline-block;
             line-height: 1;
+            animation: pulse 2s ease-in-out infinite;
         }
 
         .highlight-success {
@@ -397,7 +399,7 @@
 
         .modal-content {
             background: white;
-            border-radius: 22px;
+            border-radius: 18px;
             padding: 15px;
             max-width: 380px;
             width: 90%;
@@ -405,6 +407,7 @@
             overflow-y: auto;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             border: 2px solid rgba(255,255,255,0.2);
+            animation: modalSlideIn 0.3s ease;
         }
 
         .modal-title {
@@ -428,7 +431,7 @@
             background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             padding: 10px;
             font-size: 24px;
             font-weight: bold;
@@ -439,6 +442,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .grid-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .grid-button:active {
+            transform: translateY(0);
         }
 
         @media (max-width: 600px) {
@@ -449,7 +462,7 @@
 
             .container {
                 padding: 18px 14px;
-                border-radius: 20px 20px 0 0;
+                border-radius: 18px;
             }
             
             .info-card {
@@ -468,7 +481,7 @@
             }
 
             .section-label {
-                font-size: 16px;
+                font-size: 18px;
                 margin-bottom: 8px;
             }
 
@@ -499,7 +512,7 @@
 
             .result-container {
                 padding: 12px 20px 20px 20px;
-                min-height: 150px;
+                min-height: 200px;
             }
 
             .result-text {
@@ -562,7 +575,7 @@
             }
 
             .section-label {
-                font-size: 15px;
+                font-size: 17px;
             }
 
             .discount-text {
@@ -629,7 +642,7 @@
         </div>
         
         <div class="discount-section">
-            <span class="discount-text" id="discountText">داشکاندن ناچاڵاکە</span>
+            <span class="discount-text discount-inactive" id="discountText">داشکاندن ناچاڵاکە</span>
             <label class="switch">
                 <input type="checkbox" id="discountSwitch">
                 <span class="slider"></span>
@@ -658,13 +671,14 @@
         </div>
     </div>
 
-    <div style="max-width: 520px; width: 100%; margin: 0 auto; background: rgba(248, 250, 252, 0.98); backdrop-filter: blur(15px); border-radius: 0 0 25px 25px; padding: 18px 20px; box-shadow: 0 10px 60px rgba(0,0,0,0.3); text-align: center; border: 2px solid rgba(102, 126, 234, 0.3); border-top: none;">
-        <div style="font-size: 16px; color: #667eea; font-weight: bold; margin-bottom: 15px; line-height: 1.5;">📱 بۆ دابەزاندنی بەرنامەکە ئەم باڕکۆدە سکان بکە</div>
-        <img style="max-width: 180px; width: 100%; height: auto; margin: 0 auto; display: block; border-radius: 10px; background: white; padding: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAisAAAIrAQAAAAAG1eSFAAADVklEQVR4nO3dQXLiMBQE0G5MFdk5NzA3MTcz3Cy+Cb4B3kFVoGchyRYBsphyKp5xawUIXtkLfklfXzKFCVq3mkIBzJgxY8aMGTNmzJgxY8aMGTNLZ3pm7Q1Ax13oufINPbcADuQK1/yLq6/MRFdjxoyZWTFQaCdU8ZU+sdEJQK09QEln4L43NTC+OM7rpsyYMTMtkweKDwBgDAXHsfeMUsp7TwCAxoHCjJllMz23YUShYSbSaA/dfuVqzJgx87vM+vnHpYCWjUhd15tzz0oAQL6IFPO6KTNmzEzL5IGiHouv+vfqCAACCl1YqiPQiKG3fKjSmtdNmTFjZlpmDBQdn3STt+t6o56V2l387PLki/O6KTNmzEzLQN+2mK7MUp1Pm5OZZsz818y46hEb9Tn0NQJQhFCAOiQzC51RprcOFGbMLILJ/uzIVjxPAGpJusVAkS2PAqmswsujZswsi+lZSyIVKi/fAWSlmOFtHGCEEQWAbLV0njdlxoyZaZh86lGnwUUWCpQNIeLUQ0PdpqceZswsg8mTmR9h6pEqM+9DwRhGxnmKA4UZM8tg7kcUeyBNLmLcQBxCVM5RmDFjBgDa8L8P9VVbAIBuMUfRcYdGEDc6A+hI7p2jMGNmgUwtEvfpSq5QDLtH90DYdR7eks+Zia7GjBkzs2PSXIOrGApioy58Q6mWOxzGcquWpPTITHQ1ZsyYmSXTc4uWQ0lVOrgmLnN0rEOOQvHEmvDWB9eYMbNE5sC4rzyVVXAF4DLUUbDIzqNwHYUZM0tkakksJPWsxpKqK0tJR7QkdQNwYaVjSmj83NWYMWNmNsyLo/Du6ihSbrMZkxJf9oh5edSMmf+aebF7NMUNAHg8++6UfuxAYcbMopgnp3APlRJ3c41xTaSRcxRmzCyDGQ+uCUdaAbiu41F4O4BA8QkAldqQkig0fnk8GW9eN2XGjJmfY9rxUR09yR0Q6ihCayTF5dF3IK2l/tzVmDFjZjbMi+P6T0C+C+yUdo8Ou8DCj52jMGPGzGGsowh7PYYsxhaA6yjMmFkK882TwmJv2i46bEIPzedRmDGzRKZLo4WU37zbdZ4e8hF7Kx2818OMmcUwfHhEx9+0bl43ZcaMGTNmzJgxY8aMGTNmzJj555g/e1gHvmjdADAAAAAASUVORK5CYII=" alt="QR Code">
-    </div>
-
-    <div style="text-align: center; padding: 15px; color: rgba(255, 255, 255, 0.9); font-size: 16px; font-weight: 600;">
-        ئامادەکردنی بەرنامە: فرمان حیسابات
+    <div style="max-width: 520px; width: 100%; margin: 0 auto; padding: 15px;">
+        <div style="background: linear-gradient(135deg, #E9D5FF 0%, #DDD6FE 50%, #C7B8EA 100%); border: 5px solid #7C3AED; border-radius: 16px; padding: 20px; box-shadow: 0 15px 40px rgba(124, 58, 237, 0.35); text-align: center;">
+            <div style="font-size: 18px; font-weight: bold; color: #5B21B6; margin-bottom: 15px; line-height: 1.5;">📱 بۆ دابەزاندنی بەرنامەکە ئەم باڕکۆدە سکان بکە</div>
+            <div style="background: white; border-radius: 12px; padding: 12px; display: inline-block; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);">
+                <img style="max-width: 160px; width: 100%; height: auto; display: block; border-radius: 8px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAisAAAIrAQAAAAAG1eSFAAADVklEQVR4nO3dQXLiMBQE0G5MFdk5NzA3MTcz3Cy+Cb4B3kFVoGchyRYBsphyKp5xawUIXtkLfklfXzKFCVq3mkIBzJgxY8aMGTNmzJgxY8aMGTNLZ3pm7Q1Ax13oufINPbcADuQK1/yLq6/MRFdjxoyZWTFQaCdU8ZU+sdEJQK09QEln4L43NTC+OM7rpsyYMTMtkweKDwBgDAXHsfeMUsp7TwCAxoHCjJllMz23YUShYSbSaA/dfuVqzJgx87vM+vnHpYCWjUhd15tzz0oAQL6IFPO6KTNmzEzL5IGiHouv+vfqCAACCl1YqiPQiKG3fKjSmtdNmTFjZlpmDBQdn3STt+t6o56V2l387PLki/O6KTNmzEzLQN+2mK7MUp1Pm5OZZsz818y46hEb9Tn0NQJQhFCAOiQzC51RprcOFGbMLILJ/uzIVjxPAGpJusVAkS2PAqmswsujZswsi+lZSyIVKi/fAWSlmOFtHGCEEQWAbLV0njdlxoyZaZh86lGnwUUWCpQNIeLUQ0PdpqceZswsg8mTmR9h6pEqM+9DwRhGxnmKA4UZM8tg7kcUeyBNLmLcQBxCVM5RmDFjBgDa8L8P9VVbAIBuMUfRcYdGEDc6A+hI7p2jMGNmgUwtEvfpSq5QDLtH90DYdR7eks+Zia7GjBkzs2PSXIOrGApioy58Q6mWOxzGcquWpPTITHQ1ZsyYmSXTc4uWQ0lVOrgmLnN0rEOOQvHEmvDWB9eYMbNE5sC4rzyVVXAF4DLUUbDIzqNwHYUZM0tkakksJPWsxpKqK0tJR7QkdQNwYaVjSmj83NWYMWNmNsyLo/Du6ihSbrMZkxJf9oh5edSMmf+aebF7NMUNAHg8++6UfuxAYcbMopgnp3APlRJ3c41xTaSRcxRmzCyDGQ+uCUdaAbiu41F4O4BA8QkAldqQkig0fnk8GW9eN2XGjJmfY9rxUR09yR0Q6ihCayTF5dF3IK2l/tzVmDFjZjbMi+P6T0C+C+yUdo8Ou8DCj52jMGPGzGGsowh7PYYsxhaA6yjMmFkK882TwmJv2i46bEIPzedRmDGzRKZLo4WU37zbdZ4e8hF7Kx2818OMmcUwfHhEx9+0bl43ZcaMGTNmzJgxY8aMGTNmzJj555g/e1gHvmjdADAAAAAASUVORK5CYII=" alt="QR Code">
+            </div>
+            <div style="margin-top: 12px; font-size: 13px; color: #6B21A8; font-weight: 600;">ئامادەکردنی: فرمان حیسابات</div>
+        </div>
     </div>
 
     <div class="modal" id="pickerModal">
@@ -684,6 +698,7 @@
         function init() {
             updateTodayDate();
             updateDisplay();
+            updateDiscountText();
             calculateResult();
             
             document.getElementById('discountSwitch').addEventListener('change', function() {
@@ -818,10 +833,15 @@
             
             const finePerDay = discountActive ? 8000 : 10000;
             const resultElement = document.getElementById('resultText');
+            const resultContainer = document.querySelector('.result-container');
             
             if (diffDays > 0) {
                 const totalFine = diffDays * finePerDay;
                 const discountText = discountActive ? ' (٢٠٪ داشکاندن)' : '';
+                
+                // Reset to default style
+                resultContainer.style.background = 'linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%)';
+                resultContainer.style.border = '2px solid rgba(148, 163, 184, 0.1)';
                 
                 resultElement.innerHTML = `
                     <span class="result-line">ڕۆژە بەسەرچووەکان: <span class="highlight-error">${diffDays}</span></span>
@@ -829,15 +849,30 @@
                     <span class="result-line">کۆی گشتی: <span class="highlight-error">${formatNumber(totalFine)} دینار</span></span>
                 `;
             } else if (diffDays === 0) {
+                // Reset to default style
+                resultContainer.style.background = 'linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%)';
+                resultContainer.style.border = '2px solid rgba(148, 163, 184, 0.1)';
+                
                 resultElement.innerHTML = `
                     <span class="result-line"><span class="highlight-error">ئەمڕۆ کۆتایی وادەیە!</span></span>
                     <span class="result-line"><strong>تکایە خێرابە لە تەواوکردنی مامەڵەکەت</strong></span>
                 `;
             } else {
                 const remainingDays = Math.abs(diffDays);
+                
+                // Apply blue gradient style
+                resultContainer.style.background = 'linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 50%, #BFDBFE 100%)';
+                resultContainer.style.border = '3px solid #3B82F6';
+                
                 resultElement.innerHTML = `
-                    <span class="result-line"><span class="highlight-success">✓ بەسەر نەچووە</span></span>
-                    <span class="result-line"><span class="big-number">${remainingDays}</span> ڕۆژ ماوە بەسەربچێت</span>
+                    <div style="margin-bottom: 10px;">
+                        <div style="font-size: 32px; color: #10B981; font-weight: bold; margin-bottom: 3px;">✓</div>
+                        <div style="font-size: 24px; color: #10B981; font-weight: bold;">بەسەر نەچووە</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.6); border-radius: 12px; padding: 15px; margin-top: 10px;">
+                        <div style="font-size: 56px; font-weight: 900; color: #1E3A8A; line-height: 1;">${remainingDays}</div>
+                        <div style="font-size: 18px; color: #475569; font-weight: 600; margin-top: 3px;">ڕۆژ ماوە بەسەرچێت</div>
+                    </div>
                 `;
             }
         }
