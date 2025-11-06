@@ -413,6 +413,31 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             border: 2px solid rgba(255,255,255,0.2);
             animation: modalSlideIn 0.3s ease;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 24px;
+            color: #64748B;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+            background-color: transparent;
+            z-index: 10;
+            line-height: 1;
+        }
+
+        .close-modal:hover {
+            background-color: #F1F5F9;
+            color: #334155;
         }
 
         .modal-title {
@@ -543,6 +568,14 @@
                 width: 92%;
             }
 
+            .close-modal {
+                top: 5px;
+                left: 5px;
+                font-size: 20px;
+                width: 28px;
+                height: 28px;
+            }
+
             .modal-title {
                 font-size: 18px;
                 margin-bottom: 8px;
@@ -624,6 +657,14 @@
                 padding: 12px;
             }
 
+            .close-modal {
+                top: 4px;
+                left: 4px;
+                font-size: 18px;
+                width: 24px;
+                height: 24px;
+            }
+
             .modal-title {
                 font-size: 17px;
                 margin-bottom: 6px;
@@ -688,6 +729,7 @@
 
     <div class="modal" id="pickerModal">
         <div class="modal-content">
+            <span class="close-modal" id="closeModal">×</span>
             <div class="modal-title" id="modalTitle"></div>
             <div class="grid-container" id="gridContainer"></div>
         </div>
@@ -824,6 +866,10 @@
 
         document.getElementById('pickerModal').onclick = function(e) {
             if (e.target === this) closeModal();
+        };
+
+        document.getElementById('closeModal').onclick = function() {
+            closeModal();
         };
 
         function calculateResult() {
