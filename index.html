@@ -1080,44 +1080,45 @@
                 const iosPrompt = document.createElement('div');
                 iosPrompt.id = 'iosInstallPrompt';
                 iosPrompt.innerHTML = `
-                    <div style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 999; max-width: 90%; animation: slideIn 0.5s ease;">
+                    <div style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 999; max-width: 92%; animation: slideIn 0.5s ease;">
                         <div style="
-                            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+                            background: linear-gradient(135deg, #9333EA 0%, #7C3AED 100%);
                             color: white;
-                            padding: 20px;
-                            border-radius: 20px;
-                            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
+                            padding: 24px 20px;
+                            border-radius: 24px;
+                            box-shadow: 0 12px 40px rgba(147, 51, 234, 0.4);
                             text-align: center;
-                            line-height: 1.5;
+                            line-height: 1.6;
+                            border: 3px solid rgba(255,255,255,0.2);
                         ">
-                            <div style="font-size: 48px; margin-bottom: 12px;">📲</div>
-                            <div style="font-size: 20px; font-weight: bold; margin-bottom: 16px;">دابەزاندنی بەرنامە</div>
+                            <div style="font-size: 56px; margin-bottom: 10px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));">📲</div>
+                            <div style="font-size: 22px; font-weight: bold; margin-bottom: 18px; text-shadow: 0 2px 8px rgba(0,0,0,0.2);">دابەزاندنی بەرنامە</div>
                             
-                            <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 16px; margin-bottom: 12px; text-align: right;">
-                                <div style="display: flex; align-items: start; gap: 12px; margin-bottom: 12px;">
-                                    <div style="font-size: 28px; min-width: 32px;">1️⃣</div>
-                                    <div style="text-align: right;">
-                                        <div style="font-weight: bold; margin-bottom: 4px;">کلیک بکە لە دوگمەی Share</div>
-                                        <div style="font-size: 36px;">⬆️</div>
-                                        <div style="font-size: 13px; opacity: 0.9;">(لە خوارەوەی شاشە)</div>
+                            <div style="background: rgba(255,255,255,0.12); border-radius: 16px; padding: 20px 18px; margin-bottom: 14px; text-align: right; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15);">
+                                <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+                                    <div style="font-size: 32px; min-width: 36px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">1️⃣</div>
+                                    <div style="text-align: right; flex: 1;">
+                                        <div style="font-weight: bold; margin-bottom: 6px; font-size: 17px;">کلیک بکە لە دوگمەی Share</div>
+                                        <div style="font-size: 40px; margin: 6px 0;">⬆️</div>
+                                        <div style="font-size: 14px; opacity: 0.9;">(لە خوارەوەی شاشە)</div>
                                     </div>
                                 </div>
                                 
-                                <div style="height: 1px; background: rgba(255,255,255,0.2); margin: 12px 0;"></div>
+                                <div style="height: 2px; background: rgba(255,255,255,0.25); margin: 18px 0; border-radius: 2px;"></div>
                                 
-                                <div style="display: flex; align-items: start; gap: 12px;">
-                                    <div style="font-size: 28px; min-width: 32px;">2️⃣</div>
-                                    <div style="text-align: right;">
-                                        <div style="font-weight: bold; margin-bottom: 4px;">هەڵبژێرە</div>
-                                        <div style="background: rgba(255,255,255,0.9); color: #2563EB; padding: 8px 12px; border-radius: 8px; font-weight: bold; display: inline-block; font-size: 14px; margin-top: 4px;">
+                                <div style="display: flex; align-items: center; gap: 14px;">
+                                    <div style="font-size: 32px; min-width: 36px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">2️⃣</div>
+                                    <div style="text-align: right; flex: 1;">
+                                        <div style="font-weight: bold; margin-bottom: 8px; font-size: 17px;">هەڵبژێرە</div>
+                                        <div style="background: rgba(255,255,255,0.95); color: #7C3AED; padding: 10px 16px; border-radius: 10px; font-weight: bold; display: inline-block; font-size: 15px; margin-top: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
                                             ➕ Add to Home Screen
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             
-                            <div style="font-size: 13px; opacity: 0.85; margin-top: 8px;">
-                                دوای دابەزاندن، بەرنامە وەک ئەپێکی ئاسایی کاردەکات!
+                            <div style="font-size: 14px; opacity: 0.9; margin-top: 12px; line-height: 1.5;">
+                                ✨ دوای دابەزاندن، بەرنامە وەک ئەپێکی ئاسایی کاردەکات!
                             </div>
                         </div>
                     </div>
@@ -1130,7 +1131,7 @@
                         prompt.style.animation = 'fadeOut 0.3s ease';
                         setTimeout(() => prompt.remove(), 300);
                     }
-                }, 5000);
+                }, 8000);
             });
         }
     </script>
