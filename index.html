@@ -7,7 +7,7 @@
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#667eea">
+    <meta name="theme-color" content="#93C5FD">
     
     <!-- Apple iOS Support -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -99,9 +99,21 @@
             to { opacity: 0; }
         }
 
+        @keyframes bellRing {
+            0% { transform: rotate(0deg); }
+            10% { transform: rotate(15deg); }
+            20% { transform: rotate(-15deg); }
+            30% { transform: rotate(10deg); }
+            40% { transform: rotate(-10deg); }
+            50% { transform: rotate(5deg); }
+            60% { transform: rotate(-5deg); }
+            70% { transform: rotate(0deg); }
+            100% { transform: rotate(0deg); }
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
+            background: linear-gradient(-45deg, #DBEAFE, #BAE6FD, #7DD3FC, #93C5FD);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             min-height: 100vh;
@@ -116,7 +128,7 @@
             text-align: center;
             font-size: 38px;
             font-weight: bold;
-            color: white;
+            color: #9333EA;
             padding: 20px 15px;
             text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
             letter-spacing: 1px;
@@ -125,7 +137,7 @@
         }
 
         .container {
-            max-width: 520px;
+            max-width: 600px;
             width: 100%;
             margin: 0 auto;
             background: linear-gradient(135deg, #F3E8FF 0%, #E9D5FF 100%);
@@ -137,7 +149,7 @@
             flex-direction: column;
             flex-grow: 1;
             animation: fadeInUp 0.6s ease;
-            border: 5px solid #9333EA;
+            border: none;
         }
 
         .info-card {
@@ -176,7 +188,9 @@
 
         .deadline-info::before {
             content: "⏰ ";
-            font-size: 16px;
+            font-size: 20px;
+            display: inline-block;
+            animation: bellRing 2s ease-in-out infinite;
         }
 
         .discount-section {
@@ -184,14 +198,14 @@
             flex-direction: row-reverse;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 12px;
             margin-bottom: 15px;
-            padding: 16px;
+            padding: 18px 20px;
             background: linear-gradient(135deg, #FEF9C3 0%, #FEF08A 100%);
             border-radius: 16px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             line-height: 1.1;
-            border: 2px solid rgba(234, 179, 8, 0.2);
+            border: 4px solid #EAB308;
             animation: fadeInUp 1s ease;
         }
 
@@ -335,19 +349,19 @@
             min-height: 160px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.6);
             position: relative;
-            border: 2px solid rgba(148, 163, 184, 0.1);
+            border: 5px solid #9333EA;
             transition: all 0.4s ease;
         }
 
         .result-text {
-            font-size: 24px;
+            font-size: 20px;
             line-height: 1.6;
             position: relative;
         }
 
         .result-text strong {
             color: #1E293B;
-            font-size: 32px;
+            font-size: 26px;
         }
 
         .highlight-error {
@@ -376,7 +390,7 @@
         }
 
         .result-line {
-            margin-bottom: 8px;
+            margin-bottom: 16px;
             display: block;
         }
 
@@ -519,8 +533,8 @@
 
             .discount-section {
                 flex-direction: row-reverse;
-                gap: 8px;
-                padding: 14px;
+                gap: 10px;
+                padding: 16px 18px;
                 margin-bottom: 14px;
             }
 
@@ -548,12 +562,12 @@
             }
 
             .result-text {
-                font-size: 18px;
+                font-size: 16px;
                 line-height: 1.6;
             }
 
             .result-text strong {
-                font-size: 20px;
+                font-size: 18px;
             }
 
             .highlight-error,
@@ -562,7 +576,7 @@
             }
 
             .result-line {
-                margin-bottom: 6px;
+                margin-bottom: 12px;
             }
 
             .modal-content {
@@ -638,12 +652,12 @@
             }
 
             .result-text {
-                font-size: 16px;
+                font-size: 14px;
                 line-height: 1.6;
             }
 
             .result-text strong {
-                font-size: 18px;
+                font-size: 16px;
             }
 
             .highlight-error,
@@ -652,7 +666,7 @@
             }
 
             .result-line {
-                margin-bottom: 5px;
+                margin-bottom: 10px;
             }
 
             .modal-content {
@@ -719,11 +733,11 @@
         </div>
     </div>
 
-    <div style="max-width: 520px; width: 100%; margin: 0 auto; padding: 12px;">
+    <div style="max-width: 600px; width: 100%; margin: 0 auto; padding: 12px;">
         <div style="background: linear-gradient(135deg, #E9D5FF 0%, #DDD6FE 50%, #C7B8EA 100%); border: 5px solid #7C3AED; border-radius: 16px; padding: 16px 12px; box-shadow: 0 15px 40px rgba(124, 58, 237, 0.35); text-align: center;">
             <div style="font-size: 14px; font-weight: bold; color: #5B21B6; margin-bottom: 15px; line-height: 1.3;">📱 بۆ دابەزاندنی بەرنامەکە ئەم باڕکۆدە سکان بکە</div>
             <div style="background: white; border-radius: 12px; padding: 12px; display: inline-block; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);">
-                <img style="max-width: 160px; width: 100%; height: auto; display: block; border-radius: 8px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAisAAAIrAQAAAAAG1eSFAAADVklEQVR4nO3dQXLiMBQE0G5MFdk5NzA3MTcz3Cy+Cb4B3kFVoGchyRYBsphyKp5xawUIXtkLfklfXzKFCVq3mkIBzJgxY8aMGTNmzJgxY8aMGTNLZ3pm7Q1Ax13oufINPbcADuQK1/yLq6/MRFdjxoyZWTFQaCdU8ZU+sdEJQK09QEln4L43NTC+OM7rpsyYMTMtkweKDwBgDAXHsfeMUsp7TwCAxoHCjJllMz23YUShYSbSaA/dfuVqzJgx87vM+vnHpYCWjUhd15tzz0oAQL6IFPO6KTNmzEzL5IGiHouv+vfqCAACCl1YqiPQiKG3fKjSmtdNmTFjZlpmDBQdn3STt+t6o56V2l387PLki/O6KTNmzEzLQN+2mK7MUp1Pm5OZZsz818y46hEb9Tn0NQJQhFCAOiQzC51RprcOFGbMLILJ/uzIVjxPAGpJusVAkS2PAqmswsujZswsi+lZSyIVKi/fAWSlmOFtHGCEEQWAbLV0njdlxoyZaZh86lGnwUUWCpQNIeLUQ0PdpqceZswsg8mTmR9h6pEqM+9DwRhGxnmKA4UZM8tg7kcUeyBNLmLcQBxCVM5RmDFjBgDa8L8P9VVbAIBuMUfRcYdGEDc6A+hI7p2jMGNmgUwtEvfpSq5QDLtH90DYdR7eks+Zia7GjBkzs2PSXIOrGApioy58Q6mWOxzGcquWpPTITHQ1ZsyYmSXTc4uWQ0lVOrgmLnN0rEOOQvHEmvDWB9eYMbNE5sC4rzyVVXAF4DLUUbDIzqNwHYUZM0tkakksJPWsxpKqK0tJR7QkdQNwYaVjSmj83NWYMWNmNsyLo/Du6ihSbrMZkxJf9oh5edSMmf+aebF7NMUNAHg8++6UfuxAYcbMopgnp3APlRJ3c41xTaSRcxRmzCyDGQ+uCUdaAbiu41F4O4BA8QkAldqQkig0fnk8GW9eN2XGjJmfY9rxUR09yR0Q6ihCayTF5dF3IK2l/tzVmDFjZjbMi+P6T0C+C+yUdo8Ou8DCj52jMGPGzGGsowh7PYYsxhaA6yjMmFkK882TwmJv2i46bEIPzedRmDGzRKZLo4WU37zbdZ4e8hF7Kx2818OMmcUwfHhEx9+0bl43ZcaMGTNmzJgxY8aMGTNmzJj555g/e1gHvmjdADAAAAAASUVORK5CYII=" alt="QR Code">
+                <img style="max-width: 200px; width: 100%; height: auto; display: block; border-radius: 8px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAisAAAIrAQAAAAAG1eSFAAADVklEQVR4nO3dQXLiMBQE0G5MFdk5NzA3MTcz3Cy+Cb4B3kFVoGchyRYBsphyKp5xawUIXtkLfklfXzKFCVq3mkIBzJgxY8aMGTNmzJgxY8aMGTNLZ3pm7Q1Ax13oufINPbcADuQK1/yLq6/MRFdjxoyZWTFQaCdU8ZU+sdEJQK09QEln4L43NTC+OM7rpsyYMTMtkweKDwBgDAXHsfeMUsp7TwCAxoHCjJllMz23YUShYSbSaA/dfuVqzJgx87vM+vnHpYCWjUhd15tzz0oAQL6IFPO6KTNmzEzL5IGiHouv+vfqCAACCl1YqiPQiKG3fKjSmtdNmTFjZlpmDBQdn3STt+t6o56V2l387PLki/O6KTNmzEzLQN+2mK7MUp1Pm5OZZsz818y46hEb9Tn0NQJQhFCAOiQzC51RprcOFGbMLILJ/uzIVjxPAGpJusVAkS2PAqmswsujZswsi+lZSyIVKi/fAWSlmOFtHGCEEQWAbLV0njdlxoyZaZh86lGnwUUWCpQNIeLUQ0PdpqceZswsg8mTmR9h6pEqM+9DwRhGxnmKA4UZM8tg7kcUeyBNLmLcQBxCVM5RmDFjBgDa8L8P9VVbAIBuMUfRcYdGEDc6A+hI7p2jMGNmgUwtEvfpSq5QDLtH90DYdR7eks+Zia7GjBkzs2PSXIOrGApioy58Q6mWOxzGcquWpPTITHQ1ZsyYmSXTc4uWQ0lVOrgmLnN0rEOOQvHEmvDWB9eYMbNE5sC4rzyVVXAF4DLUUbDIzqNwHYUZM0tkakksJPWsxpKqK0tJR7QkdQNwYaVjSmj83NWYMWNmNsyLo/Du6ihSbrMZkxJf9oh5edSMmf+aebF7NMUNAHg8++6UfuxAYcbMopgnp3APlRJ3c41xTaSRcxRmzCyDGQ+uCUdaAbiu41F4O4BA8QkAldqQkig0fnk8GW9eN2XGjJmfY9rxUR09yR0Q6ihCayTF5dF3IK2l/tzVmDFjZjbMi+P6T0C+C+yUdo8Ou8DCj52jMGPGzGGsowh7PYYsxhaA6yjMmFkK882TwmJv2i46bEIPzedRmDGzRKZLo4WU37zbdZ4e8hF7Kx2818OMmcUwfHhEx9+0bl43ZcaMGTNmzJgxY8aMGTNmzJj555g/e1gHvmjdADAAAAAASUVORK5CYII=" alt="QR Code">
             </div>
             <div style="margin-top: 12px; font-size: 13px; color: #6B21A8; font-weight: 600;">ئامادەکردنی: فرمان حیسابات</div>
         </div>
@@ -892,8 +906,8 @@
                 const totalFine = diffDays * finePerDay;
                 const discountText = discountActive ? ' (٢٠٪ داشکاندن)' : '';
                 
-                resultContainer.style.background = 'linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%)';
-                resultContainer.style.border = '2px solid rgba(148, 163, 184, 0.1)';
+                resultContainer.style.background = 'linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%)';
+                resultContainer.style.border = '5px solid #DC2626';
                 
                 resultElement.innerHTML = `
                     <span class="result-line"><span class="highlight-error">${diffDays}</span> ڕۆژ بەسەرچووە</span>
@@ -902,7 +916,7 @@
                 `;
             } else if (diffDays === 0) {
                 resultContainer.style.background = 'linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%)';
-                resultContainer.style.border = '2px solid rgba(148, 163, 184, 0.1)';
+                resultContainer.style.border = '5px solid #F59E0B';
                 
                 resultElement.innerHTML = `
                     <span class="result-line"><span class="highlight-error">ئەمڕۆ کۆتایی وادەیە!</span></span>
@@ -912,7 +926,7 @@
                 const remainingDays = Math.abs(diffDays);
                 
                 resultContainer.style.background = 'linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 50%, #BFDBFE 100%)';
-                resultContainer.style.border = '3px solid #3B82F6';
+                resultContainer.style.border = '5px solid #60A5FA';
                 
                 resultElement.innerHTML = `
                     <div style="margin-bottom: 10px;">
@@ -953,7 +967,7 @@
                                         newWorker.postMessage({ action: 'skipWaiting' });
                                     }
                                 }
-                            });
+            });
                         });
                     })
                     .catch(error => {
