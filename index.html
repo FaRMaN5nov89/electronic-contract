@@ -113,6 +113,24 @@
       .grid-button{padding:9px;font-size:20px;min-height:52px}
       .close-modal{top:4px;right:4px;font-size:18px;width:24px;height:24px}
     }
+    /* یەک‌هێڵ‌کردن و گونجاندنی قەبارەی هێڵی یەکەم لە مۆبایل */
+.result-text > .result-line:first-child .highlight-error{
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* ڕێکخستن بۆ پەنجەری بچووک */
+@media (max-width: 480px){
+  .result-text > .result-line:first-child .highlight-error{
+    font-size: 9vw;         /* قەبارە بە پەیانی پەنجەریەوە */
+    letter-spacing: 0;      /* کەمکردنەوەی بوشایی وشەکان بۆ گونجان */
+  }
+}
+@media (max-width: 360px){
+  .result-text > .result-line:first-child .highlight-error{
+    font-size: 10.5vw;      /* زۆر بچووکتر بۆ شاشەی زۆر قووڵ */
+  }
+}
 
     /* >>> NEW LINES (for stacked result like the screenshot) <<< */
     .result-text{
