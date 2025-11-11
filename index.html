@@ -67,7 +67,15 @@
     .grid-container{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
     .grid-button{background:linear-gradient(135deg,#3B82F6 0%,#2563EB 100%);color:#fff;border:none;border-radius:10px;padding:10px;font-size:24px;font-weight:bold;cursor:pointer;box-shadow:0 4px 12px rgba(59,130,246,.3);min-height:58px;display:flex;align-items:center;justify-content:center;transition:transform .2s ease,box-shadow .2s ease}
     .grid-button:hover{transform:translateY(-2px);box-shadow:0 6px 15px rgba(59,130,246,.4)}
-
+    
+    @media (min-width: 640px) {
+  .result-text > .result-line:nth-of-type(2) {
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow-wrap: normal;
+    display: inline-block;
+  }
+}
     @media(max-width:600px){
       .app-title{font-size:28px;padding:18px 12px}
       .container{padding:18px 14px;border-radius:18px}
