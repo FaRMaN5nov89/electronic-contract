@@ -1,8 +1,8 @@
-const CACHE_NAME = 'contract-calculator-v5.0.0';
+const CACHE_NAME = 'contract-calculator-v5.0.1';
 const urlsToCache = [
   './',
   './index.html',
-  './manifest.json',
+  './manifest.webmanifest',
   './browserconfig.xml',
   './icon-72.png',
   './icon-96.png',
@@ -13,91 +13,56 @@ const urlsToCache = [
   './icon-180.png',
   './icon-192.png',
   './icon-384.png',
-  './icon-512.png'
+  './icon-512.png',
+  './screenshot-mobile.png',
+  './screenshot-desktop.png'
 ];
 
-// Install event - cache all files
-self.addEventListener('install', event => {
-  console.log('🔄 Service Worker: Installing...');
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('✅ Service Worker: Cache opened');
-        return cache.addAll(urlsToCache);
-      })
-      .then(() => {
-        console.log('✅ Service Worker: All files cached');
-      })
-      .catch(err => {
-        console.error('❌ Service Worker: Cache failed:', err);
-      })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
   );
   self.skipWaiting();
 });
 
-// Activate event - clean old caches
-self.addEventListener('activate', event => {
-  console.log('🔄 Service Worker: Activating...');
+self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('🗑️ Service Worker: Deleting old cache:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    }).then(() => {
-      console.log('✅ Service Worker: Activated');
-    })
+    caches.keys().then((names) => Promise.all(names.map((n) => n !== CACHE_NAME ? caches.delete(n) : null)))
   );
   self.clients.claim();
 });
 
-// Fetch event - serve from cache, fallback to network
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', (event) => {
+  const req = event.request;
+  if (req.method !== 'GET') return;
+
+  // Navigation requests: App Shell fallback
+  if (req.mode === 'navigate') {
+    event.respondWith(
+      fetch(req).catch(() => caches.match('./index.html'))
+    );
+    return;
+  }
+
+  // Static assets: cache-first, then network
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Cache hit - return response
-        if (response) {
-          return response;
-        }
-        
-        // Clone the request
-        const fetchRequest = event.request.clone();
-        
-        return fetch(fetchRequest).then(response => {
-          // Check if valid response
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            return response;
-          }
-          
-          // Clone the response
-          const responseToCache = response.clone();
-          
-          caches.open(CACHE_NAME)
-            .then(cache => {
-              cache.put(event.request, responseToCache);
-            });
-          
-          return response;
-        });
-      })
-      .catch(() => {
-        // Return offline page if available
-        return caches.match('./index.html');
-      })
+    caches.match(req).then((cached) => {
+      if (cached) return cached;
+      return fetch(req).then((res) => {
+        try {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
+        } catch (_) {}
+        return res;
+      });
+    }).catch(() => caches.match('./index.html'))
   );
 });
 
-// Handle messages from the client
-self.addEventListener('message', event => {
+self.addEventListener('message', (event) => {
   if (event.data && event.data.action === 'skipWaiting') {
     self.skipWaiting();
   }
 });
 
-// Log when service worker is ready
-console.log('✅ Service Worker: Loaded and ready');
+console.log('✅ Service Worker ready');

@@ -1,1140 +1,381 @@
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>هەژمارکردنی گرێبەستی الیکترونی</title>
-    
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#93C5FD">
-    
-    <!-- Apple iOS Support -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="گرێبەست">
-    <link rel="apple-touch-icon" href="icon-192.png">
-    
-    <!-- Description -->
-    <meta name="description" content="حیسابکردنەوەی غرامەی گرێبەستی ئەلیکترۆنی بە کوردی">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            tap-highlight-color: transparent;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes numberChange {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.15); color: #F59E0B; }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes ledColorShift {
-            0% { background-position: 0% 50%; }
-            10% { background-position: 10% 50%; }
-            20% { background-position: 20% 50%; }
-            30% { background-position: 30% 50%; }
-            40% { background-position: 40% 50%; }
-            50% { background-position: 50% 50%; }
-            60% { background-position: 60% 50%; }
-            70% { background-position: 70% 50%; }
-            80% { background-position: 80% 50%; }
-            90% { background-position: 90% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                transform: translateY(-50px) scale(0.9);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
-        }
-
-        @keyframes bellRing {
-            0% { transform: rotate(0deg); }
-            10% { transform: rotate(15deg); }
-            20% { transform: rotate(-15deg); }
-            30% { transform: rotate(10deg); }
-            40% { transform: rotate(-10deg); }
-            50% { transform: rotate(5deg); }
-            60% { transform: rotate(-5deg); }
-            70% { transform: rotate(0deg); }
-            100% { transform: rotate(0deg); }
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(-45deg, #DBEAFE, #BAE6FD, #7DD3FC, #93C5FD);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            min-height: 100vh;
-            padding: 0;
-            direction: rtl;
-            display: flex;
-            flex-direction: column;
-            line-height: 1.1;
-        }
-
-        .app-title {
-            text-align: center;
-            font-size: 38px;
-            font-weight: bold;
-            color: #9333EA;
-            padding: 20px 15px;
-            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
-            letter-spacing: 1px;
-            line-height: 1.1;
-            margin-bottom: 0;
-        }
-
-        .container {
-            max-width: 650px;
-            width: 100%;
-            margin: 0 auto;
-            background: linear-gradient(135deg, #F3E8FF 0%, #E9D5FF 100%);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 -10px 60px rgba(0,0,0,0.3), 0 0 100px rgba(255,255,255,0.1);
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            animation: fadeInUp 0.6s ease;
-            border: none;
-        }
-
-        .info-card {
-            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.15);
-            line-height: 1.1;
-            border: 2px solid rgba(59, 130, 246, 0.1);
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .today-date {
-            text-align: center;
-            font-size: 22px;
-            margin-bottom: 8px;
-            color: #1E293B;
-            font-weight: 700;
-            line-height: 1.6;
-        }
-
-        .today-date::before {
-            content: "📅 ";
-            font-size: 20px;
-        }
-
-        .deadline-info {
-            text-align: center;
-            font-size: 18px;
-            color: #475569;
-            margin-top: 2px;
-            font-weight: 600;
-            line-height: 1.6;
-        }
-
-        .deadline-info::before {
-            content: "⏰ ";
-            font-size: 20px;
-            display: inline-block;
-            animation: bellRing 2s ease-in-out infinite;
-        }
-
-        .discount-section {
-            display: flex;
-            flex-direction: row-reverse;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 15px;
-            padding: 18px 20px;
-            background: linear-gradient(135deg, #FEF9C3 0%, #FEF08A 100%);
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            line-height: 1.1;
-            border: 4px solid #EAB308;
-            animation: fadeInUp 1s ease;
-        }
-
-        .discount-text {
-            font-size: 22px;
-            font-weight: bold;
-            line-height: 1.1;
-        }
-
-        .discount-text::before {
-            content: "💰 ";
-            font-size: 20px;
-        }
-
-        .discount-active {
-            color: #15803D;
-        }
-
-        .discount-inactive {
-            color: #FF1744;
-            text-shadow: 0 2px 8px rgba(255, 23, 68, 0.3);
-        }
-
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 65px;
-            height: 35px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
-            transition: .4s;
-            border-radius: 35px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            -webkit-tap-highlight-color: transparent;
-            tap-highlight-color: transparent;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 28px;
-            width: 28px;
-            left: 4px;
-            bottom: 4px;
-            background: white;
-            transition: .4s;
-            border-radius: 50%;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-
-        input:checked + .slider {
-            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(28px);
-        }
-
-        .section-label {
-            font-size: 26px;
-            color: #2563EB;
-            margin-bottom: 8px;
-            text-align: center;
-            font-weight: 700;
-            line-height: 1.8;
-        }
-
-        .date-picker {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 12px;
-            animation: fadeInUp 1.2s ease;
-        }
-
-        .date-button {
-            color: white;
-            border: none;
-            border-radius: 14px;
-            padding: 10px 6px;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            line-height: 1;
-            transition: transform 0.2s ease;
-            -webkit-tap-highlight-color: transparent;
-            tap-highlight-color: transparent;
-        }
-
-        .date-button:hover {
-            transform: scale(1.05);
-        }
-
-        .date-button:active {
-            transform: scale(0.95);
-        }
-
-        .date-button:nth-child(1) {
-            background: linear-gradient(135deg, rgb(139, 92, 246) 0%, rgb(124, 58, 237) 100%);
-            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
-        }
-
-        .date-button:nth-child(2) {
-            background: linear-gradient(135deg, rgb(236, 72, 153) 0%, rgb(219, 39, 119) 100%);
-            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
-        }
-
-        .date-button:nth-child(3) {
-            background: linear-gradient(135deg, rgb(14, 165, 233) 0%, rgb(2, 132, 199) 100%);
-            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
-        }
-
-        .date-label {
-            display: block;
-            font-size: 12px;
-            margin-top: 2px;
-            opacity: 0.9;
-            line-height: 1;
-        }
-
-        .result-container {
-            background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
-            border-radius: 20px;
-            padding: 40px 45px 45px 45px;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            text-align: center;
-            min-height: 300px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.6);
-            position: relative;
-            border: 5px solid #9333EA;
-            transition: all 0.4s ease;
-        }
-
-        .result-text {
-            font-size: 30px;
-            line-height: 1.8;
-            position: relative;
-        }
-
-        .result-text strong {
-            color: #9333EA;
-            font-size: 38px;
-        }
-
-        .dinar-text {
-            font-size: 26px;
-        }
-
-        .highlight-error {
-            color: #EF4444;
-            font-size: 65px;
-            font-weight: bold;
-            text-shadow: 0 2px 10px rgba(239, 68, 68, 0.3);
-            display: inline-block;
-            line-height: 1;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .highlight-success {
-            color: #10B981;
-            font-size: 58px;
-            font-weight: bold;
-            text-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
-            display: inline-block;
-            line-height: 1;
-        }
-
-        .big-number {
-            font-size: 42px;
-            font-weight: 900;
-            color: #1E293B;
-        }
-
-        .result-line {
-            margin-bottom: 25px;
-            display: block;
-        }
-
-        .result-line:last-child {
-            margin-bottom: 0;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(5px);
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 18px;
-            padding: 15px;
-            max-width: 380px;
-            width: 90%;
-            max-height: 85vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            border: 2px solid rgba(255,255,255,0.2);
-            animation: modalSlideIn 0.3s ease;
-            position: relative;
-        }
-
-      .close-modal {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 28px;
-    color: white;
-    cursor: pointer;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6%;
-    transition: all 0.3s;
-    background-color: #DC2626;
-    border: 2px solid #B91C1C;
-    z-index: 10;
-    line-height: 1;
-    font-weight: 700;
-}
-
-.close-modal:hover {
-    background-color: #B91C1C;
-    border-color: #991B1B;
-}
-
-        .modal-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #1E293B;
-            margin-bottom: 8px;
-            text-align: center;
-            padding-bottom: 8px;
-            border-bottom: 3px solid #3B82F6;
-            line-height: 1.1;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 5px;
-        }
-
-        .grid-button {
-            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 10px;
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-            line-height: 1;
-            min-height: 58px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            -webkit-tap-highlight-color: transparent;
-            tap-highlight-color: transparent;
-        }
-
-        .grid-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(59, 130, 246, 0.4);
-        }
-
-        .grid-button:active {
-            transform: translateY(0);
-        }
-
-        @media (max-width: 600px) {
-            .app-title {
-                font-size: 28px;
-                padding: 18px 12px;
-            }
-
-            .container {
-                padding: 18px 14px;
-                border-radius: 18px;
-            }
-            
-            .info-card {
-                padding: 14px;
-                margin-bottom: 14px;
-            }
-            
-            .today-date {
-                font-size: 20px;
-                margin-bottom: 3px;
-            }
-
-            .deadline-info {
-                font-size: 17px;
-                margin-top: 2px;
-            }
-
-            .section-label {
-                font-size: 18px;
-                margin-bottom: 8px;
-            }
-
-            .discount-section {
-                flex-direction: row-reverse;
-                gap: 10px;
-                padding: 16px 18px;
-                margin-bottom: 14px;
-            }
-
-            .discount-text {
-                font-size: 20px;
-            }
-
-            .date-picker {
-                gap: 6px;
-                margin-bottom: 14px;
-            }
-
-            .date-button {
-                padding: 12px 6px;
-                font-size: 36px;
-            }
-
-            .date-label {
-                font-size: 11px;
-            }
-
-            .result-container {
-                padding: 30px 35px 35px 35px;
-                min-height: 280px;
-            }
-
-            .result-text {
-                font-size: 18px;
-                line-height: 1.8;
-            }
-
-            .result-text strong {
-                font-size: 22px;
-            }
-
-            .dinar-text {
-                font-size: 17px;
-            }
-
-            .highlight-error,
-            .highlight-success {
-                font-size: 45px;
-            }
-
-            .result-line {
-                margin-bottom: 20px;
-            }
-
-            .modal-content {
-                padding: 15px;
-                width: 92%;
-            }
-
-            .close-modal {
-                top: 5px;
-                left: 5px;
-                font-size: 20px;
-                width: 28px;
-                height: 28px;
-            }
-
-            .modal-title {
-                font-size: 18px;
-                margin-bottom: 8px;
-            }
-
-            .grid-button {
-                padding: 10px;
-                font-size: 22px;
-                min-height: 55px;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .app-title {
-                font-size: 24px;
-                padding: 15px 10px;
-            }
-
-            .container {
-                padding: 15px 10px;
-            }
-
-            .info-card {
-                padding: 12px;
-            }
-
-            .today-date {
-                font-size: 18px;
-                margin-bottom: 2px;
-            }
-
-            .deadline-info {
-                font-size: 16px;
-                margin-top: 1px;
-            }
-
-            .section-label {
-                font-size: 17px;
-            }
-
-            .discount-text {
-                font-size: 18px;
-            }
-
-            .date-button {
-                padding: 10px 5px;
-                font-size: 32px;
-            }
-
-            .date-label {
-                font-size: 10px;
-                margin-top: 1px;
-            }
-
-            .result-container {
-                padding: 25px 30px 30px 30px;
-                min-height: 240px;
-            }
-
-            .result-text {
-                font-size: 16px;
-                line-height: 1.8;
-            }
-
-            .result-text strong {
-                font-size: 19px;
-            }
-
-            .dinar-text {
-                font-size: 15px;
-            }
-
-            .highlight-error,
-            .highlight-success {
-                font-size: 40px;
-            }
-
-            .result-line {
-                margin-bottom: 18px;
-            }
-
-            .modal-content {
-                padding: 12px;
-            }
-
-            .close-modal {
-                top: 4px;
-                left: 4px;
-                font-size: 18px;
-                width: 24px;
-                height: 24px;
-            }
-
-            .modal-title {
-                font-size: 17px;
-                margin-bottom: 6px;
-            }
-
-            .grid-button {
-                padding: 9px;
-                font-size: 20px;
-                min-height: 52px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>هەژمارکردنی گرێبەستی الیکترونی</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#667eea">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="گرێبەست">
+  <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
+
+  <meta name="description" content="حیسابکردنەوەی غرامەی گرێبەستی ئەلیکترۆنی بە کوردی">
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;tap-highlight-color:transparent}
+    @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+    @keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes fadeOut{from{opacity:1}to{opacity:0}}
+    @keyframes bellRing{0%{transform:rotate(0)}10%{transform:rotate(15deg)}20%{transform:rotate(-15deg)}30%{transform:rotate(10deg)}40%{transform:rotate(-10deg)}50%{transform:rotate(5deg)}60%{transform:rotate(-5deg)}70%{transform:rotate(0)}100%{transform:rotate(0)}}
+
+    body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(-45deg,#DBEAFE,#BAE6FD,#7DD3FC,#93C5FD);background-size:400% 400%;animation:gradientShift 15s ease infinite;min-height:100vh;display:flex;flex-direction:column;line-height:1.1;direction:rtl}
+    .app-title{text-align:center;font-size:38px;font-weight:bold;color:#9333EA;padding:20px 15px;text-shadow:0 4px 12px rgba(0,0,0,.3),0 2px 4px rgba(0,0,0,.2)}
+    .container{max-width:650px;width:100%;margin:0 auto;background:linear-gradient(135deg,#F3E8FF 0%,#E9D5FF 100%);backdrop-filter:blur(15px);border-radius:20px;padding:20px;box-shadow:0 -10px 60px rgba(0,0,0,.3),0 0 100px rgba(255,255,255,.1);display:flex;flex-direction:column;flex-grow:1;animation:fadeInUp .6s ease;border:none}
+    .info-card{background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%);border-radius:16px;padding:16px;margin-bottom:15px;box-shadow:0 4px 15px rgba(59,130,246,.15);border:2px solid rgba(59,130,246,.1)}
+    .today-date{text-align:center;font-size:22px;margin-bottom:8px;color:#1E293B;font-weight:700;line-height:1.6}
+    .today-date::before{content:"📅 "}
+    .deadline-info{text-align:center;font-size:18px;color:#475569;margin-top:2px;font-weight:600;line-height:1.6}
+    .deadline-info::before{content:"⏰ ";display:inline-block;animation:bellRing 2s ease-in-out infinite}
+    .discount-section{display:flex;flex-direction:row-reverse;align-items:center;justify-content:center;gap:12px;margin-bottom:15px;padding:18px 20px;background:linear-gradient(135deg,#FEF9C3 0%,#FEF08A 100%);border-radius:16px;box-shadow:0 4px 15px rgba(0,0,0,.1);border:4px solid #EAB308}
+    .discount-text{font-size:22px;font-weight:bold}
+    .discount-text::before{content:"💰 "}
+    .discount-active{color:#15803D}.discount-inactive{color:#FF1744;text-shadow:0 2px 8px rgba(255,23,68,.3)}
+    .switch{position:relative;display:inline-block;width:65px;height:35px}.switch input{opacity:0;width:0;height:0}
+    .slider{position:absolute;cursor:pointer;inset:0;background:linear-gradient(135deg,#EF4444 0%,#DC2626 100%);transition:.4s;border-radius:35px;box-shadow:0 4px 10px rgba(0,0,0,.2)}
+    .slider:before{content:"";position:absolute;height:28px;width:28px;left:4px;bottom:4px;background:#fff;transition:.4s;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+    input:checked + .slider{background:linear-gradient(135deg,#10B981 0%,#059669 100%)}
+    input:checked + .slider:before{transform:translateX(28px)}
+
+    .section-label{text-align:center;font-size:26px;color:#2563EB;margin-bottom:8px;font-weight:700;line-height:1.8}
+    .date-picker{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+    .date-button{color:#fff;border:none;border-radius:14px;padding:10px 6px;font-size:40px;font-weight:bold;cursor:pointer;line-height:1;transition:transform .2s ease}
+    .date-button:hover{transform:scale(1.05)}.date-button:active{transform:scale(0.95)}
+    .date-button:nth-child(1){background:linear-gradient(135deg, rgb(139,92,246) 0%, rgb(124,58,237) 100%);box-shadow:0 4px 12px rgba(139,92,246,.4)}
+    .date-button:nth-child(2){background:linear-gradient(135deg, rgb(236,72,153) 0%, rgb(219,39,119) 100%);box-shadow:0 4px 12px rgba(236,72,153,.4)}
+    .date-button:nth-child(3){background:linear-gradient(135deg, rgb(14,165,233) 0%, rgb(2,132,199) 100%);box-shadow:0 4px 12px rgba(14,165,233,.4)}
+    .date-label{display:block;font-size:12px;margin-top:2px;opacity:.9}
+
+    .result-container{background:linear-gradient(135deg,#F1F5F9 0%,#E2E8F0 100%);border-radius:20px;padding:40px 45px 45px;display:flex;align-items:flex-start;justify-content:center;text-align:center;min-height:300px;box-shadow:0 8px 25px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.6);border:5px solid #9333EA;transition:all .4s ease}
+    .result-text{font-size:30px;line-height:1.8}
+    .result-text strong{color:#9333EA;font-size:38px}
+    .dinar-text{font-size:26px}
+    .highlight-error{color:#EF4444;font-size:65px;font-weight:bold;text-shadow:0 2px 10px rgba(239,68,68,.3);display:inline-block;line-height:1;animation:pulse 2s ease-in-out infinite}
+    .highlight-success{color:#10B981;font-size:58px;font-weight:bold;text-shadow:0 2px 10px rgba(16,185,129,.3);display:inline-block;line-height:1}
+
+    .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(5px);align-items:center;justify-content:center;z-index:1000}
+    .modal.active{display:flex}
+    .modal-content{background:#fff;border-radius:18px;padding:15px;max-width:380px;width:90%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);border:2px solid rgba(255,255,255,.2);position:relative}
+    .close-modal{position:absolute;top:10px;right:10px;font-size:28px;color:#fff;cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:6%;transition:all .3s;background:#DC2626;border:2px solid #B91C1C;z-index:10;font-weight:700}
+    .close-modal:hover{background:#B91C1C;border-color:#991B1B}
+    .modal-title{text-align:center;font-size:20px;font-weight:bold;color:#1E293B;margin-bottom:8px;padding-bottom:8px;border-bottom:3px solid #3B82F6}
+    .grid-container{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+    .grid-button{background:linear-gradient(135deg,#3B82F6 0%,#2563EB 100%);color:#fff;border:none;border-radius:10px;padding:10px;font-size:24px;font-weight:bold;cursor:pointer;box-shadow:0 4px 12px rgba(59,130,246,.3);min-height:58px;display:flex;align-items:center;justify-content:center;transition:transform .2s ease,box-shadow .2s ease}
+    .grid-button:hover{transform:translateY(-2px);box-shadow:0 6px 15px rgba(59,130,246,.4)}
+
+    @media(max-width:600px){
+      .app-title{font-size:28px;padding:18px 12px}
+      .container{padding:18px 14px;border-radius:18px}
+      .info-card{padding:14px;margin-bottom:14px}
+      .today-date{font-size:20px}
+      .deadline-info{font-size:17px}
+      .section-label{font-size:18px}
+      .discount-section{gap:10px;padding:16px 18px;margin-bottom:14px}
+      .discount-text{font-size:20px}
+      .date-picker{gap:6px;margin-bottom:14px}
+      .date-button{padding:12px 6px;font-size:36px}
+      .result-container{padding:30px 35px 35px;min-height:280px}
+      .result-text{font-size:18px}
+      .result-text strong{font-size:22px}
+      .dinar-text{font-size:17px}
+      .highlight-error,.highlight-success{font-size:45px}
+      .modal-content{padding:15px;width:92%}
+      .close-modal{top:5px;right:5px;font-size:20px;width:28px;height:28px}
+      .grid-button{padding:10px;font-size:22px;min-height:55px}
+    }
+    @media(max-width:400px){
+      .app-title{font-size:24px;padding:15px 10px}
+      .container{padding:15px 10px}
+      .info-card{padding:12px}
+      .today-date{font-size:18px}
+      .deadline-info{font-size:16px}
+      .section-label{font-size:17px}
+      .discount-text{font-size:18px}
+      .date-button{padding:10px 5px;font-size:32px}
+      .result-container{padding:25px 30px 30px;min-height:240px}
+      .result-text{font-size:16px}
+      .result-text strong{font-size:19px}
+      .dinar-text{font-size:15px}
+      .highlight-error,.highlight-success{font-size:40px}
+      .grid-button{padding:9px;font-size:20px;min-height:52px}
+      .close-modal{top:4px;right:4px;font-size:18px;width:24px;height:24px}
+    }
+  </style>
 </head>
 <body>
-    <div class="app-title">هەژمارکردنی گرێبەستی الیکترونی</div>
-    
-    <div class="container">
-        <div class="info-card">
-            <div class="today-date" id="todayDate"></div>
-            <div class="deadline-info" id="deadlineInfo"></div>
-        </div>
-        
-        <div class="discount-section">
-            <span class="discount-text discount-inactive" id="discountText">داشکاندن ناچاڵاکە</span>
-            <label class="switch">
-                <input type="checkbox" id="discountSwitch">
-                <span class="slider"></span>
-            </label>
-        </div>
+  <div class="app-title">هەژمارکردنی گرێبەستی الیکترونی</div>
 
-        <div class="section-label">ڕێکەوتی دەستپێکردنی گرێبەست</div>
-        
-        <div class="date-picker">
-            <button class="date-button" onclick="showDayPicker()">
-                <div id="dayBtn">1</div>
-                <div class="date-label">ڕۆژ</div>
-            </button>
-            <button class="date-button" onclick="showMonthPicker()">
-                <div id="monthBtn">1</div>
-                <div class="date-label">مانگ</div>
-            </button>
-            <button class="date-button" onclick="showYearPicker()">
-                <div id="yearBtn">2026</div>
-                <div class="date-label">ساڵ</div>
-            </button>
-        </div>
-        
-        <div class="result-container">
-            <div class="result-text" id="resultText"></div>
-        </div>
+  <div class="container">
+    <div class="info-card">
+      <div class="today-date" id="todayDate"></div>
+      <div class="deadline-info" id="deadlineInfo"></div>
     </div>
 
-    <div style="max-width: 650px; width: 100%; margin: 0 auto; padding: 12px;">
-        <div style="background: linear-gradient(135deg, #E9D5FF 0%, #DDD6FE 50%, #C7B8EA 100%); border: 5px solid #7C3AED; border-radius: 16px; padding: 16px 12px; box-shadow: 0 15px 40px rgba(124, 58, 237, 0.35); text-align: center;">
-            <div style="font-size: 14px; font-weight: bold; color: #5B21B6; margin-bottom: 15px; line-height: 1.3;">📱 بۆ دابەزاندنی بەرنامەکە ئەم باڕکۆدە سکان بکە</div>
-            <div style="background: white; border-radius: 12px; padding: 12px; display: inline-block; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);">
-                <img style="max-width: 200px; width: 100%; height: auto; display: block; border-radius: 8px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAisAAAIrAQAAAAAG1eSFAAADVklEQVR4nO3dQXLiMBQE0G5MFdk5NzA3MTcz3Cy+Cb4B3kFVoGchyRYBsphyKp5xawUIXtkLfklfXzKFCVq3mkIBzJgxY8aMGTNmzJgxY8aMGTNLZ3pm7Q1Ax13oufINPbcADuQK1/yLq6/MRFdjxoyZWTFQaCdU8ZU+sdEJQK09QEln4L43NTC+OM7rpsyYMTMtkweKDwBgDAXHsfeMUsp7TwCAxoHCjJllMz23YUShYSbSaA/dfuVqzJgx87vM+vnHpYCWjUhd15tzz0oAQL6IFPO6KTNmzEzL5IGiHouv+vfqCAACCl1YqiPQiKG3fKjSmtdNmTFjZlpmDBQdn3STt+t6o56V2l387PLki/O6KTNmzEzLQN+2mK7MUp1Pm5OZZsz818y46hEb9Tn0NQJQhFCAOiQzC51RprcOFGbMLILJ/uzIVjxPAGpJusVAkS2PAqmswsujZswsi+lZSyIVKi/fAWSlmOFtHGCEEQWAbLV0njdlxoyZaZh86lGnwUUWCpQNIeLUQ0PdpqceZswsg8mTmR9h6pEqM+9DwRhGxnmKA4UZM8tg7kcUeyBNLmLcQBxCVM5RmDFjBgDa8L8P9VVbAIBuMUfRcYdGEDc6A+hI7p2jMGNmgUwtEvfpSq5QDLtH90DYdR7eks+Zia7GjBkzs2PSXIOrGApioy58Q6mWOxzGcquWpPTITHQ1ZsyYmSXTc4uWQ0lVOrgmLnN0rEOOQvHEmvDWB9eYMbNE5sC4rzyVVXAF4DLUUbDIzqNwHYUZM0tkakksJPWsxpKqK0tJR7QkdQNwYaVjSmj83NWYMWNmNsyLo/Du6ihSbrMZkxJf9oh5edSMmf+aebF7NMUNAHg8++6UfuxAYcbMopgnp3APlRJ3c41xTaSRcxRmzCyDGQ+uCUdaAbiu41F4O4BA8QkAldqQkig0fnk8GW9eN2XGjJmfY9rxUR09yR0Q6ihCayTF5dF3IK2l/tzVmDFjZjbMi+P6T0C+C+yUdo8Ou8DCj52jMGPGzGGsowh7PYYsxhaA6yjMmFkK882TwmJv2i46bEIPzedRmDGzRKZLo4WU37zbdZ4e8hF7Kx2818OMmcUwfHhEx9+0bl43ZcaMGTNmzJgxY8aMGTNmzJj555g/e1gHvmjdADAAAAAASUVORK5CYII=" alt="QR Code">
+    <div class="discount-section">
+      <span class="discount-text discount-inactive" id="discountText">داشکاندن ناچاڵاکە</span>
+      <label class="switch">
+        <input type="checkbox" id="discountSwitch">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="section-label">ڕێکەوتی دەستپێکردنی گرێبەست</div>
+
+    <div class="date-picker">
+      <button type="button" class="date-button" onclick="showDayPicker()">
+        <div id="dayBtn">1</div>
+        <div class="date-label">ڕۆژ</div>
+      </button>
+      <button type="button" class="date-button" onclick="showMonthPicker()">
+        <div id="monthBtn">1</div>
+        <div class="date-label">مانگ</div>
+      </button>
+      <button type="button" class="date-button" onclick="showYearPicker()">
+        <div id="yearBtn">2026</div>
+        <div class="date-label">ساڵ</div>
+      </button>
+    </div>
+
+    <div class="result-container">
+      <div class="result-text" id="resultText"></div>
+    </div>
+  </div>
+
+  <!-- QR card -->
+  <div style="max-width:650px;width:100%;margin:0 auto;padding:12px;">
+    <div style="background:linear-gradient(135deg,#E9D5FF 0%,#DDD6FE 50%,#C7B8EA 100%);border:5px solid #7C3AED;border-radius:16px;padding:16px 12px;box-shadow:0 15px 40px rgba(124,58,237,.35);text-align:center;">
+      <div style="font-size:14px;font-weight:bold;color:#5B21B6;margin-bottom:15px;line-height:1.3;">📱 بۆ دابەزاندنی بەرنامەکە ئەم باڕکۆدە سکان بکە</div>
+      <div style="background:#fff;border-radius:12px;padding:12px;display:inline-block;box-shadow:0 6px 20px rgba(0,0,0,.12);">
+        <img style="max-width:200px;width:100%;height:auto;display:block;border-radius:8px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAisAAAIrAQAAAAAG1eSFAAADVklEQVR4nO3dQXLiMBQE0G5MFdk5NzA3MTcz3Cy+Cb4B3kFVoGchyRYBsphyKp5xawUIXtkLfklfXzKFCVq3mkIBzJgxY8aMGTNmzJgxY8aMGTNLZ3pm7Q1Ax13oufINPbcADuQK1/yLq6/MRFdjxoyZWTFQaCdU8ZU+sdEJQK09QEln4L43NTC+OM7rpsyYMTMtkweKDwBgDAXHsfeMUsp7TwCAxoHCjJllMz23YUShYSbSaA/dfuVqzJgx87vM+vnHpYCWjUhd15tzz0oAQL6IFPO6KTNmzEzL5IGiHouv+vfqCAACCl1YqiPQiKG3fKjSmtdNmTFjZlpmDBQdn3STt+t6o56V2l387PLki/O6KTNmzEzLQN+2mK7MUp1Pm5OZZsz818y46hEb9Tn0NQJQhFCAOiQzC51RprcOFGbMLILJ/uzIVjxPAGpJusVAkS2PAqmswsujZswsi+lZSyIVKi/fAWSlmOFtHGCEEQWAbLV0njdlxoyZaZh86lGnwUUWCpQNIeLUQ0PdpqceZswsg8mTmR9h6pEqM+9DwRhGxnmKA4UZM8tg7kcUeyBNLmLcQBxCVM5RmDFjBgDa8L8P9VVbAIBuMUfRcYdGEDc6A+hI7p2jMGNmgUwtEvfpSq5QDLtH90DYdR7eks+Zia7GjBkzs2PSXIOrGApioy58Q6mWOxzGcquWpPTITHQ1ZsyYmSXTc4uWQ0lVOrgmLnN0rEOOQvHEmvDWB9eYMbNE5sC4rzyVVXAF4DLUUbDIzqNwHYUZM0tkakksJPWsxpKqK0tJR7QkdQNwYaVjSmj83NWYMWNmNsyLo/Du6ihSbrMZkxJf9oh5edSMmf+aebF7NMUNAHg8++6UfuxAYcbMopgnp3APlRJ3c41xTaSRcxRmzCyDGQ+uCUdaAbiu41F4O4BA8QkAldqQkig0fnk8GW9eN2XGjJmfY9rxUR09yR0Q6ihCayTF5dF3IK2l/tzVmDFjZjbMi+P6T0C+C+yUdo8Ou8DCj52jMGPGzGGsowh7PYYsxhaA6yjMmFkK882TwmJv2i46bEIPzedRmDGzRKZLo4WU37zbdZ4e8hF7Kx2818OMmcUwfHhEx9+0bl43ZcaMGTNmzJgxY8aMGTNmzJj555g/e1gHvmjdADAAAAAASUVORK5CYII=" alt="QR Code">
+      </div>
+      <div style="margin-top:12px;font-size:13px;color:#6B21A8;font-weight:600;">ئامادەکردنی: فرمان حیسابات</div>
+    </div>
+  </div>
+
+  <div class="modal" id="pickerModal">
+    <div class="modal-content">
+      <span class="close-modal" id="closeModal">×</span>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="grid-container" id="gridContainer"></div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- State ----------
+    let selectedYear = new Date().getFullYear();
+    let selectedMonth = new Date().getMonth() + 1;
+    let selectedDay = new Date().getDate();
+    let discountActive = false;
+    const nf = new Intl.NumberFormat('en-US');
+
+    // ---------- Init ----------
+    function init() {
+      updateTodayDate();
+      updateDisplay();
+      updateDiscountText();
+      calculateResult();
+      document.getElementById('discountSwitch').addEventListener('change', function(){ discountActive = this.checked; updateDiscountText(); calculateResult(); });
+    }
+
+    // ---------- Helpers ----------
+    function updateTodayDate(){
+      const now = new Date();
+      const formatted = `${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
+      document.getElementById('todayDate').textContent = `ڕێکەوتی ئەمڕۆ: ${formatted}`;
+    }
+    function updateDeadlineInfo(){
+      const startDate = new Date(selectedYear, selectedMonth-1, selectedDay);
+      const deadline  = new Date(startDate); deadline.setDate(deadline.getDate()+59);
+      const formatted = `${deadline.getDate()}/${deadline.getMonth()+1}/${deadline.getFullYear()}`;
+      document.getElementById('deadlineInfo').textContent = `کۆتایی وادە: ${formatted}`;
+    }
+    function updateDiscountText(){
+      const text = discountActive ? '٢٠٪ داشکاندن چاڵاکە' : 'داشکاندن ناچاڵاکە';
+      const el = document.getElementById('discountText');
+      el.textContent = text;
+      el.className = discountActive ? 'discount-text discount-active' : 'discount-text discount-inactive';
+    }
+    function updateDisplay(){
+      document.getElementById('yearBtn').textContent  = selectedYear;
+      document.getElementById('monthBtn').textContent = selectedMonth;
+      document.getElementById('dayBtn').textContent   = selectedDay;
+    }
+    function getDaysInMonth(y, m){ return new Date(y, m, 0).getDate(); }
+
+    // ---------- Pickers ----------
+    function showYearPicker(){
+      const modal = document.getElementById('pickerModal');
+      const grid  = document.getElementById('gridContainer');
+      document.getElementById('modalTitle').textContent = '📅 ساڵەکان';
+      grid.innerHTML=''; grid.style.gridTemplateColumns='repeat(3,1fr)';
+      for(let year=2021; year<=2035; year++){
+        const btn = document.createElement('button');
+        btn.className='grid-button'; btn.textContent=year; btn.onclick=()=>{ selectedYear=year; const dim=getDaysInMonth(selectedYear,selectedMonth); if(selectedDay>dim) selectedDay=dim; updateDisplay(); calculateResult(); closeModal(); };
+        grid.appendChild(btn);
+      }
+      modal.classList.add('active');
+    }
+    function showMonthPicker(){
+      const modal = document.getElementById('pickerModal');
+      const grid  = document.getElementById('gridContainer');
+      document.getElementById('modalTitle').textContent = '📆 مانگەکان';
+      grid.innerHTML=''; grid.style.gridTemplateColumns='repeat(3,1fr)';
+      for(let month=1; month<=12; month++){
+        const btn = document.createElement('button');
+        btn.className='grid-button'; btn.textContent=month; btn.onclick=()=>{ selectedMonth=month; const dim=getDaysInMonth(selectedYear,selectedMonth); if(selectedDay>dim) selectedDay=dim; updateDisplay(); calculateResult(); closeModal(); };
+        grid.appendChild(btn);
+      }
+      modal.classList.add('active');
+    }
+    function showDayPicker(){
+      const modal = document.getElementById('pickerModal');
+      const grid  = document.getElementById('gridContainer');
+      document.getElementById('modalTitle').textContent = '📋 ڕۆژەکان';
+      const daysInMonth = getDaysInMonth(selectedYear, selectedMonth);
+      grid.innerHTML=''; grid.style.gridTemplateColumns='repeat(4,1fr)';
+      for(let day=1; day<=daysInMonth; day++){
+        const btn = document.createElement('button');
+        btn.className='grid-button'; btn.textContent=day; btn.onclick=()=>{ selectedDay=day; updateDisplay(); calculateResult(); closeModal(); };
+        grid.appendChild(btn);
+      }
+      modal.classList.add('active');
+    }
+    function closeModal(){ document.getElementById('pickerModal').classList.remove('active'); }
+    document.getElementById('pickerModal').onclick = (e)=>{ if(e.target === e.currentTarget) closeModal(); };
+    document.getElementById('closeModal').onclick = closeModal;
+
+    // ---------- Calculation ----------
+    function calculateResult(){
+      const now = new Date();
+      const todayUTC = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+      const startDate = new Date(selectedYear, selectedMonth-1, selectedDay);
+      const deadline = new Date(startDate); deadline.setDate(deadline.getDate()+59);
+      const deadlineUTC = Date.UTC(deadline.getFullYear(), deadline.getMonth(), deadline.getDate());
+
+      updateDeadlineInfo();
+      updateTodayDate();
+
+      const diffDays = Math.floor((todayUTC - deadlineUTC) / 86400000);
+      const finePerDay = discountActive ? 8000 : 10000;
+      const resultEl = document.getElementById('resultText');
+      const box = document.querySelector('.result-container');
+
+      if (diffDays > 0){
+        const total = diffDays * finePerDay;
+        box.style.background = 'linear-gradient(135deg,#FEE2E2 0%,#FECACA 100%)';
+        box.style.border = '5px solid #DC2626';
+        resultEl.innerHTML = `
+          <span class="result-line"><span class="highlight-error">${diffDays}</span> ڕۆژ بەسەرچووە</span>
+          <span class="result-line">بۆ هەر ڕۆژێک <strong>${nf.format(finePerDay)}</strong> <span class="dinar-text">دینار</span>${discountActive ? ' (٢٠٪ داشکاندن)' : ''}</span>
+          <span class="result-line">کۆی گشتی: <span class="highlight-error">${nf.format(total)}</span> <span class="dinar-text">دینار</span></span>`;
+      } else if (diffDays === 0){
+        box.style.background = 'linear-gradient(135deg,#F1F5F9 0%,#E2E8F0 100%)';
+        box.style.border = '5px solid #F59E0B';
+        resultEl.innerHTML = `<span class="result-line"><span class="highlight-error">ئەمڕۆ کۆتایی وادەیە!</span></span>
+          <span class="result-line"><strong>تکایە خێرابە لە تەواوکردنی مامەڵەکەت</strong></span>`;
+      } else {
+        const remain = Math.abs(diffDays);
+        box.style.background = 'linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 50%,#BFDBFE 100%)';
+        box.style.border = '5px solid #60A5FA';
+        resultEl.innerHTML = `
+          <div style="margin-bottom:10px;"><div style="font-size:32px;color:#10B981;font-weight:bold;margin-bottom:3px;">✓</div>
+            <div style="font-size:24px;color:#10B981;font-weight:bold;">بەسەر نەچووە</div></div>
+          <div style="background:rgba(255,255,255,.6);border-radius:12px;padding:15px;margin-top:10px;">
+            <div style="font-size:56px;font-weight:900;color:#1E3A8A;line-height:1;">${remain}</div>
+            <div style="font-size:18px;color:#475569;font-weight:600;margin-top:3px;">ڕۆژ ماوە بەسەرچێت</div>
+          </div>`;
+      }
+    }
+
+    // ---------- Boot ----------
+    init();
+  </script>
+
+  <!-- PWA Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => {
+            console.log('✅ Service Worker registered');
+            reg.addEventListener('updatefound', () => {
+              const nw = reg.installing; if (!nw) return;
+              nw.addEventListener('statechange', () => {
+                if (nw.state === 'installed' && navigator.serviceWorker.controller) {
+                  if (confirm('🔄 وەشانی نوێ ئامادەیە! دەتەوێت نوێ بکەیت؟')) {
+                    reg.waiting && reg.waiting.postMessage({ action: 'skipWaiting' });
+                  }
+                }
+              });
+            });
+          })
+          .catch(err => console.error('SW registration failed:', err));
+        navigator.serviceWorker.addEventListener('controllerchange', () => window.location.reload());
+      });
+    }
+  </script>
+
+  <!-- Install Prompt (Android/Desktop) -->
+  <script>
+    let deferredPrompt, installContainer;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      showInstallButton();
+    });
+    function showInstallButton() {
+      if (installContainer) return;
+      installContainer = document.createElement('div');
+      installContainer.innerHTML = `
+        <div style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:999;animation:slideIn .5s ease;">
+          <button id="installBtn" style="background:linear-gradient(135deg,#10B981,#059669);color:#fff;border:none;padding:14px 26px;font-size:18px;font-weight:bold;border-radius:999px;cursor:pointer;box-shadow:0 8px 25px rgba(16,185,129,.4);display:flex;align-items:center;gap:10px;">
+            <span style="font-size:22px;">📲</span><span>دابەزێنە</span>
+          </button>
+        </div>`;
+      document.body.appendChild(installContainer);
+      document.getElementById('installBtn').addEventListener('click', async () => {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') installContainer.style.display = 'none';
+        deferredPrompt = null;
+      });
+    }
+    window.addEventListener('appinstalled', () => { if (installContainer) installContainer.style.display='none'; });
+  </script>
+
+  <!-- iOS Add to Home Screen helper -->
+  <script>
+    function isIOS(){ return /iPad|iPhone|iPod/.test(navigator.userAgent); }
+    function isStandalone(){ return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone; }
+    if (isIOS() && !isStandalone()) {
+      window.addEventListener('load', () => {
+        const tip = document.createElement('div');
+        tip.innerHTML = `
+          <div style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:999;max-width:92%;animation:slideIn .5s ease;">
+            <div style="background:linear-gradient(135deg,#9333EA,#7C3AED);color:#fff;padding:20px 18px;border-radius:24px;box-shadow:0 12px 40px rgba(147,51,234,.4);text-align:center;line-height:1.6;border:3px solid rgba(255,255,255,.2);">
+              <div style="font-size:22px;font-weight:bold;margin-bottom:12px;">دابەزاندنی بەرنامە</div>
+              <div style="text-align:right;background:rgba(255,255,255,.12);border-radius:16px;padding:16px;">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+                  <div style="font-size:24px;">1️⃣</div>
+                  <div>کلیک بکە لە دوگمەی <b>Share</b> ⬆️</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <div style="font-size:24px;">2️⃣</div>
+                  <div>هەڵبژێرە <b>Add to Home Screen</b></div>
+                </div>
+              </div>
             </div>
-            <div style="margin-top: 12px; font-size: 13px; color: #6B21A8; font-weight: 600;">ئامادەکردنی: فرمان حیسابات</div>
-        </div>
-    </div>
-
-    <div class="modal" id="pickerModal">
-        <div class="modal-content">
-            <span class="close-modal" id="closeModal">×</span>
-            <div class="modal-title" id="modalTitle"></div>
-            <div class="grid-container" id="gridContainer"></div>
-        </div>
-    </div>
-
-    <script>
-        let currentDate = new Date();
-        let selectedYear = currentDate.getFullYear();
-        let selectedMonth = currentDate.getMonth() + 1;
-        let selectedDay = currentDate.getDate();
-        let discountActive = false;
-
-        function init() {
-            updateTodayDate();
-            updateDisplay();
-            updateDiscountText();
-            calculateResult();
-            
-            document.getElementById('discountSwitch').addEventListener('change', function() {
-                discountActive = this.checked;
-                updateDiscountText();
-                calculateResult();
-            });
-        }
-
-        function updateTodayDate() {
-            const formatted = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
-            document.getElementById('todayDate').textContent = `ڕێکەوتی ئەمڕۆ: ${formatted}`;
-        }
-
-        function updateDeadlineInfo() {
-            const startDate = new Date(selectedYear, selectedMonth - 1, selectedDay);
-            const deadline = new Date(startDate);
-            deadline.setDate(deadline.getDate() + 59);
-            
-            const formatted = `${deadline.getDate()}/${deadline.getMonth() + 1}/${deadline.getFullYear()}`;
-            document.getElementById('deadlineInfo').textContent = `کۆتایی وادە: ${formatted}`;
-        }
-
-        function updateDiscountText() {
-            const text = discountActive ? '٢٠٪ داشکاندن چاڵاکە' : 'داشکاندن ناچاڵاکە';
-            const element = document.getElementById('discountText');
-            element.textContent = text;
-            element.className = discountActive ? 'discount-text discount-active' : 'discount-text discount-inactive';
-        }
-
-        function updateDisplay() {
-            document.getElementById('yearBtn').textContent = selectedYear;
-            document.getElementById('monthBtn').textContent = selectedMonth;
-            document.getElementById('dayBtn').textContent = selectedDay;
-        }
-
-        function getDaysInMonth(year, month) {
-            return new Date(year, month, 0).getDate();
-        }
-
-        function showYearPicker() {
-            const modal = document.getElementById('pickerModal');
-            const grid = document.getElementById('gridContainer');
-            document.getElementById('modalTitle').textContent = '📅 ساڵەکان';
-            
-            grid.innerHTML = '';
-            grid.style.gridTemplateColumns = 'repeat(3, 1fr)';
-            
-            for (let year = 2021; year <= 2035; year++) {
-                const btn = document.createElement('button');
-                btn.className = 'grid-button';
-                btn.textContent = year;
-                btn.onclick = () => {
-                    selectedYear = year;
-                    updateDisplay();
-                    calculateResult();
-                    closeModal();
-                };
-                grid.appendChild(btn);
-            }
-            modal.classList.add('active');
-        }
-
-        function showMonthPicker() {
-            const modal = document.getElementById('pickerModal');
-            const grid = document.getElementById('gridContainer');
-            document.getElementById('modalTitle').textContent = '📆 مانگەکان';
-            
-            grid.innerHTML = '';
-            grid.style.gridTemplateColumns = 'repeat(3, 1fr)';
-            
-            for (let month = 1; month <= 12; month++) {
-                const btn = document.createElement('button');
-                btn.className = 'grid-button';
-                btn.textContent = month;
-                btn.onclick = () => {
-                    selectedMonth = month;
-                    const daysInMonth = getDaysInMonth(selectedYear, selectedMonth);
-                    if (selectedDay > daysInMonth) {
-                        selectedDay = daysInMonth;
-                    }
-                    updateDisplay();
-                    calculateResult();
-                    closeModal();
-                };
-                grid.appendChild(btn);
-            }
-            modal.classList.add('active');
-        }
-
-        function showDayPicker() {
-            const modal = document.getElementById('pickerModal');
-            const grid = document.getElementById('gridContainer');
-            document.getElementById('modalTitle').textContent = '📋 ڕۆژەکان';
-            
-            const daysInMonth = getDaysInMonth(selectedYear, selectedMonth);
-            grid.innerHTML = '';
-            grid.style.gridTemplateColumns = 'repeat(4, 1fr)';
-            
-            for (let day = 1; day <= daysInMonth; day++) {
-                const btn = document.createElement('button');
-                btn.className = 'grid-button';
-                btn.textContent = day;
-                btn.onclick = () => {
-                    selectedDay = day;
-                    updateDisplay();
-                    calculateResult();
-                    closeModal();
-                };
-                grid.appendChild(btn);
-            }
-            modal.classList.add('active');
-        }
-
-        function closeModal() {
-            document.getElementById('pickerModal').classList.remove('active');
-        }
-
-        document.getElementById('pickerModal').onclick = function(e) {
-            if (e.target === this) closeModal();
-        };
-
-        document.getElementById('closeModal').onclick = function() {
-            closeModal();
-        };
-
-        function calculateResult() {
-            const startDate = new Date(selectedYear, selectedMonth - 1, selectedDay);
-            const deadline = new Date(startDate);
-            deadline.setDate(deadline.getDate() + 59);
-            
-            updateDeadlineInfo();
-            
-            const diffTime = currentDate - deadline;
-            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-            
-            const finePerDay = discountActive ? 8000 : 10000;
-            const resultElement = document.getElementById('resultText');
-            const resultContainer = document.querySelector('.result-container');
-            
-            if (diffDays > 0) {
-                const totalFine = diffDays * finePerDay;
-                const discountText = discountActive ? ' (٢٠٪ داشکاندن)' : '';
-                
-                resultContainer.style.background = 'linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%)';
-                resultContainer.style.border = '5px solid #DC2626';
-                
-                resultElement.innerHTML = `
-                    <span class="result-line"><span class="highlight-error">${diffDays}</span> ڕۆژ بەسەرچووە</span>
-                    <span class="result-line">بۆ هەر ڕۆژێک <strong>${formatNumber(finePerDay)}</strong> <span class="dinar-text">دینار</span>${discountText}</span>
-                    <span class="result-line">کۆی گشتی: <span class="highlight-error">${formatNumber(totalFine)}</span> <span class="dinar-text">دینار</span></span>
-                `;
-            } else if (diffDays === 0) {
-                resultContainer.style.background = 'linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%)';
-                resultContainer.style.border = '5px solid #F59E0B';
-                
-                resultElement.innerHTML = `
-                    <span class="result-line"><span class="highlight-error">ئەمڕۆ کۆتایی وادەیە!</span></span>
-                    <span class="result-line"><strong>تکایە خێرابە لە تەواوکردنی مامەڵەکەت</strong></span>
-                `;
-            } else {
-                const remainingDays = Math.abs(diffDays);
-                
-                resultContainer.style.background = 'linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 50%, #BFDBFE 100%)';
-                resultContainer.style.border = '5px solid #60A5FA';
-                
-                resultElement.innerHTML = `
-                    <div style="margin-bottom: 10px;">
-                        <div style="font-size: 32px; color: #10B981; font-weight: bold; margin-bottom: 3px;">✓</div>
-                        <div style="font-size: 24px; color: #10B981; font-weight: bold;">بەسەر نەچووە</div>
-                    </div>
-                    <div style="background: rgba(255, 255, 255, 0.6); border-radius: 12px; padding: 15px; margin-top: 10px;">
-                        <div style="font-size: 56px; font-weight: 900; color: #1E3A8A; line-height: 1;">${remainingDays}</div>
-                        <div style="font-size: 18px; color: #475569; font-weight: 600; margin-top: 3px;">ڕۆژ ماوە بەسەرچێت</div>
-                    </div>
-                `;
-            }
-        }
-
-        function formatNumber(num) {
-            return num.toLocaleString('en-US');
-        }
-
-        init();
-    </script>
-
-    <!-- PWA Service Worker Registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            let newWorker;
-
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(registration => {
-                        console.log('✅ Service Worker registered successfully');
-                        
-                        registration.addEventListener('updatefound', () => {
-                            newWorker = registration.installing;
-                            
-                            newWorker.addEventListener('statechange', () => {
-                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                    if (confirm('🔄 وەشانی نوێی بەرنامە ئامادەیە!\n\nدەتەوێت ئێستا ئەپدەیت بکەیت؟')) {
-                                        newWorker.postMessage({ action: 'skipWaiting' });
-                                    }
-                                }
-            });
-                        });
-                    })
-                    .catch(error => {
-                        console.error('❌ Service Worker registration failed:', error);
-                    });
-
-                navigator.serviceWorker.addEventListener('controllerchange', () => {
-                    window.location.reload();
-                });
-            });
-
-            window.addEventListener('online', () => {
-                console.log('🌐 ئۆنڵاین - پەیوەندی بە ئینتەرنێتەوە هەیە');
-            });
-
-            window.addEventListener('offline', () => {
-                console.log('📴 ئۆفڵاین - بێ ئینتەرنێت کاردەکات');
-            });
-        } else {
-            console.warn('⚠️ Service Worker پشتگیری ناکرێت لەم Browser ە');
-        }
-    </script>
-
-    <!-- Install Prompt -->
-    <script>
-        let deferredPrompt;
-        let installButton;
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            showInstallButton();
-        });
-
-        function showInstallButton() {
-            if (!installButton) {
-                installButton = document.createElement('div');
-                installButton.innerHTML = `
-                    <div style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 999; animation: slideIn 0.5s ease;">
-                        <button id="installBtn" style="
-                            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-                            color: white;
-                            border: none;
-                            padding: 16px 32px;
-                            font-size: 20px;
-                            font-weight: bold;
-                            border-radius: 50px;
-                            cursor: pointer;
-                            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
-                            display: flex;
-                            align-items: center;
-                            gap: 10px;
-                        ">
-                            <span style="font-size: 24px;">📲</span>
-                            <span>دابەزێنە</span>
-                        </button>
-                    </div>
-                `;
-                
-                document.body.appendChild(installButton);
-                document.getElementById('installBtn').addEventListener('click', installApp);
-            }
-        }
-
-        async function installApp() {
-            if (!deferredPrompt) return;
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            
-            if (outcome === 'accepted') {
-                if (installButton) installButton.style.display = 'none';
-            }
-            deferredPrompt = null;
-        }
-
-        window.addEventListener('appinstalled', () => {
-            if (installButton) installButton.style.display = 'none';
-        });
-
-        function isIOS() {
-            return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        }
-
-        function isInStandaloneMode() {
-            return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-        }
-
-        if (isIOS() && !isInStandaloneMode()) {
-            window.addEventListener('load', () => {
-                const iosPrompt = document.createElement('div');
-                iosPrompt.id = 'iosInstallPrompt';
-                iosPrompt.innerHTML = `
-                    <div style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 999; max-width: 92%; animation: slideIn 0.5s ease;">
-                        <div style="
-                            background: linear-gradient(135deg, #9333EA 0%, #7C3AED 100%);
-                            color: white;
-                            padding: 24px 20px;
-                            border-radius: 24px;
-                            box-shadow: 0 12px 40px rgba(147, 51, 234, 0.4);
-                            text-align: center;
-                            line-height: 1.6;
-                            border: 3px solid rgba(255,255,255,0.2);
-                        ">
-                            <div style="font-size: 56px; margin-bottom: 10px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));">📲</div>
-                            <div style="font-size: 22px; font-weight: bold; margin-bottom: 18px; text-shadow: 0 2px 8px rgba(0,0,0,0.2);">دابەزاندنی بەرنامە</div>
-                            
-                            <div style="background: rgba(255,255,255,0.12); border-radius: 16px; padding: 20px 18px; margin-bottom: 14px; text-align: right; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15);">
-                                <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
-                                    <div style="font-size: 32px; min-width: 36px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">1️⃣</div>
-                                    <div style="text-align: right; flex: 1;">
-                                        <div style="font-weight: bold; margin-bottom: 6px; font-size: 17px;">کلیک بکە لە دوگمەی Share</div>
-                                        <div style="font-size: 40px; margin: 6px 0;">⬆️</div>
-                                        <div style="font-size: 14px; opacity: 0.9;">(لە خوارەوەی شاشە)</div>
-                                    </div>
-                                </div>
-                                
-                                <div style="height: 2px; background: rgba(255,255,255,0.25); margin: 18px 0; border-radius: 2px;"></div>
-                                
-                                <div style="display: flex; align-items: center; gap: 14px;">
-                                    <div style="font-size: 32px; min-width: 36px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">2️⃣</div>
-                                    <div style="text-align: right; flex: 1;">
-                                        <div style="font-weight: bold; margin-bottom: 8px; font-size: 17px;">هەڵبژێرە</div>
-                                        <div style="background: rgba(255,255,255,0.95); color: #7C3AED; padding: 10px 16px; border-radius: 10px; font-weight: bold; display: inline-block; font-size: 15px; margin-top: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-                                            ➕ Add to Home Screen
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div style="font-size: 14px; opacity: 0.9; margin-top: 12px; line-height: 1.5;">
-                                ✨ دوای دابەزاندن، بەرنامە وەک ئەپێکی ئاسایی کاردەکات!
-                            </div>
-                        </div>
-                    </div>
-                `;
-                document.body.appendChild(iosPrompt);
-                
-                setTimeout(() => {
-                    const prompt = document.getElementById('iosInstallPrompt');
-                    if (prompt) {
-                        prompt.style.animation = 'fadeOut 0.3s ease';
-                        setTimeout(() => prompt.remove(), 300);
-                    }
-                }, 8000);
-            });
-        }
-    </script>
-
+          </div>`;
+        document.body.appendChild(tip);
+        setTimeout(()=>{ tip.style.animation='fadeOut .3s ease'; setTimeout(()=> tip.remove(), 300); }, 8000);
+      });
+    }
+  </script>
 </body>
 </html>
