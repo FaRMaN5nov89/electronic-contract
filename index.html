@@ -25,7 +25,7 @@
     @keyframes bellRing{0%{transform:rotate(0)}10%{transform:rotate(15deg)}20%{transform:rotate(-15deg)}30%{transform:rotate(10deg)}40%{transform:rotate(-10deg)}50%{transform:rotate(5deg)}60%{transform:rotate(-5deg)}70%{transform:rotate(0)}100%{transform:rotate(0)}}
 
     body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(-45deg,#DBEAFE,#BAE6FD,#7DD3FC,#93C5FD);background-size:400% 400%;animation:gradientShift 15s ease infinite;min-height:100vh;display:flex;flex-direction:column;line-height:1.1;direction:rtl}
-    .app-title{text-align:center;font-weight:bold;color:#9333EA;padding:20px 15px;text-shadow:0 4px 12px rgba(0,0,0,.3),0 2px 4px rgba(0,0,0,.2);font-size:clamp(22px,5.2vw,38px)}
+    .app-title{text-align:center;font-size:38px;font-weight:bold;color:#9333EA;padding:20px 15px;text-shadow:0 4px 12px rgba(0,0,0,.3),0 2px 4px rgba(0,0,0,.2)}
     .container{max-width:650px;width:100%;margin:0 auto;background:linear-gradient(135deg,#F3E8FF 0%,#E9D5FF 100%);backdrop-filter:blur(15px);border-radius:20px;padding:20px;box-shadow:0 -10px 60px rgba(0,0,0,.3),0 0 100px rgba(255,255,255,.1);display:flex;flex-direction:column;flex-grow:1;animation:fadeInUp .6s ease;border:none}
     .info-card{background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%);border-radius:16px;padding:16px;margin-bottom:15px;box-shadow:0 4px 15px rgba(59,130,246,.15);border:2px solid rgba(59,130,246,.1)}
     .today-date{text-align:center;font-size:22px;margin-bottom:8px;color:#1E293B;font-weight:700;line-height:1.6}
@@ -42,7 +42,7 @@
     input:checked + .slider{background:linear-gradient(135deg,#10B981 0%,#059669 100%)}
     input:checked + .slider:before{transform:translateX(28px)}
 
-    .section-label{text-align:center;color:#2563EB;margin-bottom:8px;font-weight:700;line-height:1.8;font-size:26px}
+    .section-label{text-align:center;font-size:26px;color:#2563EB;margin-bottom:8px;font-weight:700;line-height:1.8}
     .date-picker{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
     .date-button{color:#fff;border:none;border-radius:14px;padding:10px 6px;font-size:40px;font-weight:bold;cursor:pointer;line-height:1;transition:transform .2s ease}
     .date-button:hover{transform:scale(1.05)}.date-button:active{transform:scale(0.95)}
@@ -52,8 +52,8 @@
     .date-label{display:block;font-size:12px;margin-top:2px;opacity:.9}
 
     .result-container{background:linear-gradient(135deg,#F1F5F9 0%,#E2E8F0 100%);border-radius:20px;padding:40px 45px 45px;display:flex;align-items:flex-start;justify-content:center;text-align:center;min-height:300px;box-shadow:0 8px 25px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.6);border:5px solid #9333EA;transition:all .4s ease}
-    .result-text{font-size:30px;line-height:1.8;font-variant-numeric:tabular-nums}
-    .result-text strong{color:#9333EA;font-size:clamp(20px,4.2vw,38px)}
+    .result-text{font-size:30px;line-height:1.8}
+    .result-text strong{color:#9333EA;font-size:38px}
     .dinar-text{font-size:26px}
     .highlight-error{color:#EF4444;font-size:65px;font-weight:bold;text-shadow:0 2px 10px rgba(239,68,68,.3);display:inline-block;line-height:1;animation:pulse 2s ease-in-out infinite}
     .highlight-success{color:#10B981;font-size:58px;font-weight:bold;text-shadow:0 2px 10px rgba(16,185,129,.3);display:inline-block;line-height:1}
@@ -67,8 +67,17 @@
     .grid-container{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
     .grid-button{background:linear-gradient(135deg,#3B82F6 0%,#2563EB 100%);color:#fff;border:none;border-radius:10px;padding:10px;font-size:24px;font-weight:bold;cursor:pointer;box-shadow:0 4px 12px rgba(59,130,246,.3);min-height:58px;display:flex;align-items:center;justify-content:center;transition:transform .2s ease,box-shadow .2s ease}
     .grid-button:hover{transform:translateY(-2px);box-shadow:0 6px 15px rgba(59,130,246,.4)}
-
+    
+    @media (min-width: 640px) {
+  .result-text > .result-line:nth-of-type(2) {
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow-wrap: normal;
+    display: inline-block;
+  }
+}
     @media(max-width:600px){
+      .app-title{font-size:28px;padding:18px 12px}
       .container{padding:18px 14px;border-radius:18px}
       .info-card{padding:14px;margin-bottom:14px}
       .today-date{font-size:20px}
@@ -86,9 +95,9 @@
       .modal-content{padding:15px;width:92%}
       .close-modal{top:5px;right:5px;font-size:20px;width:28px;height:28px}
       .grid-button{padding:10px;font-size:22px;min-height:55px}
-      img[alt="QR Code"]{max-width:160px}
     }
     @media(max-width:400px){
+      .app-title{font-size:24px;padding:15px 10px}
       .container{padding:15px 10px}
       .info-card{padding:12px}
       .today-date{font-size:18px}
@@ -104,37 +113,35 @@
       .grid-button{padding:9px;font-size:20px;min-height:52px}
       .close-modal{top:4px;right:4px;font-size:18px;width:24px;height:24px}
     }
+    /* یەک‌هێڵ‌کردن و گونجاندنی قەبارەی هێڵی یەکەم لە مۆبایل */
+.result-text > .result-line:first-child .highlight-error{
+  white-space: nowrap;
+  line-height: 1;
+}
 
-    /* Stack result lines nicely */
-    .result-text{display:flex;flex-direction:column;align-items:center;gap:8px}
-    .result-line{display:block;margin:2px 0}
+/* ڕێکخستن بۆ پەنجەری بچووک */
+@media (max-width: 480px){
+  .result-text > .result-line:first-child .highlight-error{
+    font-size: 9vw;         /* قەبارە بە پەیانی پەنجەریەوە */
+    letter-spacing: 0;      /* کەمکردنەوەی بوشایی وشەکان بۆ گونجان */
+  }
+}
+@media (max-width: 360px){
+  .result-text > .result-line:first-child .highlight-error{
+    font-size: 10.5vw;      /* زۆر بچووکتر بۆ شاشەی زۆر قووڵ */
+  }
+}
 
-    /* Keep line 2 on one line on desktop */
-    @media (min-width:640px){
-      .result-text > .result-line:nth-of-type(2){
-        white-space:nowrap;word-break:keep-all;overflow-wrap:normal;display:inline-block
-      }
+    /* >>> NEW LINES (for stacked result like the screenshot) <<< */
+    .result-text{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:8px;
     }
-
-    /* Make first line bold/pretty, stay single-line on mobile too */
-    .result-text > .result-line:first-child .highlight-error{
-      display:inline-block;font-weight:900;color:#EF4444;letter-spacing:.5px;white-space:nowrap;line-height:1;
-      font-size:clamp(40px,6.5vw,110px);
-      text-shadow:0 2px 0 rgba(255,255,255,.85),0 12px 30px rgba(239,68,68,.35)
-    }
-    @media (max-width:480px){
-      .result-text > .result-line:first-child .highlight-error{font-size:9.5vw;letter-spacing:0}
-    }
-    @media (max-width:360px){
-      .result-text > .result-line:first-child .highlight-error{font-size:10.5vw}
-    }
-
-    /* Numbers line up nicely */
-    .result-text,.date-button{font-variant-numeric:tabular-nums}
-
-    /* Respect reduced-motion */
-    @media (prefers-reduced-motion:reduce){
-      *{animation:none!important;transition:none!important}
+    .result-line{
+      display:block;
+      margin:2px 0;
     }
   </style>
 </head>
@@ -173,7 +180,7 @@
     </div>
 
     <div class="result-container">
-      <div class="result-text" id="resultText" aria-live="polite"></div>
+      <div class="result-text" id="resultText"></div>
     </div>
   </div>
 
@@ -188,9 +195,9 @@
     </div>
   </div>
 
-  <div class="modal" id="pickerModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle">
+  <div class="modal" id="pickerModal">
     <div class="modal-content">
-      <button type="button" class="close-modal" id="closeModal" aria-label="داخستن">×</button>
+      <span class="close-modal" id="closeModal">×</span>
       <div class="modal-title" id="modalTitle"></div>
       <div class="grid-container" id="gridContainer"></div>
     </div>
@@ -198,38 +205,19 @@
 
   <script>
     // ---------- State ----------
-    const STORAGE_KEY = 'contractCalc:v1';
     let selectedYear = new Date().getFullYear();
     let selectedMonth = new Date().getMonth() + 1;
     let selectedDay = new Date().getDate();
     let discountActive = false;
     const nf = new Intl.NumberFormat('en-US');
 
-    // ---------- Persist ----------
-    function loadState(){
-      try{
-        const s = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
-        if(s.y) selectedYear = s.y;
-        if(s.m) selectedMonth = s.m;
-        if(s.d) selectedDay = s.d;
-        if(typeof s.disc === 'boolean') discountActive = s.disc;
-      }catch{}
-    }
-    function saveState(){
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({y:selectedYear,m:selectedMonth,d:selectedDay,disc:discountActive}));
-    }
-
     // ---------- Init ----------
     function init() {
-      loadState();
       updateTodayDate();
       updateDisplay();
       updateDiscountText();
-      document.getElementById('discountSwitch').checked = discountActive;
       calculateResult();
-      document.getElementById('discountSwitch').addEventListener('change', function(){
-        discountActive = this.checked; updateDiscountText(); calculateResult(); saveState();
-      });
+      document.getElementById('discountSwitch').addEventListener('change', function(){ discountActive = this.checked; updateDiscountText(); calculateResult(); });
     }
 
     // ---------- Helpers ----------
@@ -265,10 +253,10 @@
       grid.innerHTML=''; grid.style.gridTemplateColumns='repeat(3,1fr)';
       for(let year=2021; year<=2035; year++){
         const btn = document.createElement('button');
-        btn.className='grid-button'; btn.textContent=year; btn.onclick=()=>{ selectedYear=year; const dim=getDaysInMonth(selectedYear,selectedMonth); if(selectedDay>dim) selectedDay=dim; updateDisplay(); calculateResult(); saveState(); closeModal(); };
+        btn.className='grid-button'; btn.textContent=year; btn.onclick=()=>{ selectedYear=year; const dim=getDaysInMonth(selectedYear,selectedMonth); if(selectedDay>dim) selectedDay=dim; updateDisplay(); calculateResult(); closeModal(); };
         grid.appendChild(btn);
       }
-      modal.classList.add('active'); modal.setAttribute('aria-hidden','false');
+      modal.classList.add('active');
     }
     function showMonthPicker(){
       const modal = document.getElementById('pickerModal');
@@ -277,10 +265,10 @@
       grid.innerHTML=''; grid.style.gridTemplateColumns='repeat(3,1fr)';
       for(let month=1; month<=12; month++){
         const btn = document.createElement('button');
-        btn.className='grid-button'; btn.textContent=month; btn.onclick=()=>{ selectedMonth=month; const dim=getDaysInMonth(selectedYear,selectedMonth); if(selectedDay>dim) selectedDay=dim; updateDisplay(); calculateResult(); saveState(); closeModal(); };
+        btn.className='grid-button'; btn.textContent=month; btn.onclick=()=>{ selectedMonth=month; const dim=getDaysInMonth(selectedYear,selectedMonth); if(selectedDay>dim) selectedDay=dim; updateDisplay(); calculateResult(); closeModal(); };
         grid.appendChild(btn);
       }
-      modal.classList.add('active'); modal.setAttribute('aria-hidden','false');
+      modal.classList.add('active');
     }
     function showDayPicker(){
       const modal = document.getElementById('pickerModal');
@@ -290,15 +278,12 @@
       grid.innerHTML=''; grid.style.gridTemplateColumns='repeat(4,1fr)';
       for(let day=1; day<=daysInMonth; day++){
         const btn = document.createElement('button');
-        btn.className='grid-button'; btn.textContent=day; btn.onclick=()=>{ selectedDay=day; updateDisplay(); calculateResult(); saveState(); closeModal(); };
+        btn.className='grid-button'; btn.textContent=day; btn.onclick=()=>{ selectedDay=day; updateDisplay(); calculateResult(); closeModal(); };
         grid.appendChild(btn);
       }
-      modal.classList.add('active'); modal.setAttribute('aria-hidden','false');
+      modal.classList.add('active');
     }
-    function closeModal(){
-      const modal = document.getElementById('pickerModal');
-      modal.classList.remove('active'); modal.setAttribute('aria-hidden','true');
-    }
+    function closeModal(){ document.getElementById('pickerModal').classList.remove('active'); }
     document.getElementById('pickerModal').onclick = (e)=>{ if(e.target === e.currentTarget) closeModal(); };
     document.getElementById('closeModal').onclick = closeModal;
 
@@ -360,7 +345,7 @@
               const nw = reg.installing; if (!nw) return;
               nw.addEventListener('statechange', () => {
                 if (nw.state === 'installed' && navigator.serviceWorker.controller) {
-                  if (confirm('🔄 وەشانی نوێ ئامادەیە! دەتەوێت نوێ بکەیت؟')) {
+                  if (confirm('🔄 ئەپدەیتی نوێ ئامادەیە! دەتەوێت نوێ بکەیتەوە؟')) {
                     reg.waiting && reg.waiting.postMessage({ action: 'skipWaiting' });
                   }
                 }
@@ -386,7 +371,7 @@
       installContainer = document.createElement('div');
       installContainer.innerHTML = `
         <div style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:999;animation:slideIn .5s ease;">
-          <button id="installBtn" style="background:linear-gradient(135deg,#10B981,#059669);color:#fff;border:none;padding:14px 26px calc(14px + env(safe-area-inset-bottom));font-size:18px;font-weight:bold;border-radius:999px;cursor:pointer;box-shadow:0 8px 25px rgba(16,185,129,.4);display:flex;align-items:center;gap:10px;">
+          <button id="installBtn" style="background:linear-gradient(135deg,#10B981,#059669);color:#fff;border:none;padding:14px 26px;font-size:18px;font-weight:bold;border-radius:999px;cursor:pointer;box-shadow:0 8px 25px rgba(16,185,129,.4);display:flex;align-items:center;gap:10px;">
             <span style="font-size:22px;">📲</span><span>دابەزێنە</span>
           </button>
         </div>`;
