@@ -327,7 +327,7 @@
               const nw = reg.installing; if (!nw) return;
               nw.addEventListener('statechange', () => {
                 if (nw.state === 'installed' && navigator.serviceWorker.controller) {
-                  if (confirm('🔄 وەشانی نوێ ئامادەیە! دەتەوێت نوێ بکەیت؟')) {
+                  if (confirm('🔄 ئەپدەیتی نوێ ئامادەیە! دەتەوێت نوێ بکەیتەوە؟')) {
                     reg.waiting && reg.waiting.postMessage({ action: 'skipWaiting' });
                   }
                 }
